@@ -1,0 +1,76 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+  max-inline-size: 240px;
+  max-block-size: 430px;
+  border: none;
+  padding: 15px;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.art {
+  font-size: 13px;
+  font-weight: 400;
+  color: #A8ADB2;
+  line-height: 13px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  inline-size: 120px;
+  block-size: 40px;
+  background-color: #186FD4;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn:hover {
+  background: rgba(31, 111, 222, 0.8);
+  z-index: 10;
+}
+
+.btnSpan {
+  color: #fff;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 18px;
+  text-align: left;
+  line-height: 26px;
+  color: #000;
+}
+
+.price {
+  color: #003B73;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.img {
+  inline-size: 180px;
+  block-size: 150px;
+  margin: 0 auto;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

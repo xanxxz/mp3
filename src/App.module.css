@@ -1,8 +1,10 @@
 html,
 body {
-  background-color: #fafafa;
+  background-color: #fff;
   margin: 0;
   padding: 0;
+  font-family: 'Helvetica', Arial, sans-serif;
+  scrollbar-width: none;
 }
 
 .container {

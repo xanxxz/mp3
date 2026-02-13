@@ -1,0 +1,94 @@
+.wrapper {
+  padding-block: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.title {
+  color: #111827;
+}
+
+.reset {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.reset:hover {
+  color: #1e40af;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 3px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 3px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+  padding: 4px 2px;
+  border-radius: 4px;
+}
+
+.item:hover {
+  background: #f3f4f6;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6; /* современный стиль чекбокса */
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.label {
+  color: #374151;
+  transition: color 0.2s;
+}
+
+.label.checked {
+  font-weight: 600;
+  color: #111827;
+}
+
+.count {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}

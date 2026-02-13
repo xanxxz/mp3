@@ -1,0 +1,6 @@
+.panel {
+  width: 260px;
+  border-radius: 8px;
+  background: #fff;
+  height: fit-content;
+}

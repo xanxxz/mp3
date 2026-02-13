@@ -1,0 +1,49 @@
+.hero {
+  width: 100%;
+  margin: 0;
+  margin-block-start: 20px;
+  padding: 0;
+  padding-block: 30px;
+  padding-block-end: 50px;
+  background-color: #F3F4F5;
+  display: flex;
+  flex-direction: column; /* заголовок сверху */
+  gap: 20px;
+}
+
+h2 {
+  margin: 0;
+  margin-inline-start: 40px;
+  color: #2C333D;
+  font-size: 33px;
+  font-weight: 700;
+}
+
+.cards {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto; /* горизонтальный скролл */
+  padding: 10px 0;
+  width: 100%;
+  justify-content: space-evenly; /* центрируем карточки */
+  scroll-behavior: smooth;
+}
+
+.div {
+  flex: 0 0 auto;
+  width: 160px;
+  height: 60px;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.slide {
+  width: 50%;
+  height: auto;
+  max-height: 50px;
+  border-radius: 10px;
+  object-fit: contain;
+}

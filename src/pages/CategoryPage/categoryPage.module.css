@@ -1,0 +1,25 @@
+.content {
+  display: flex;
+  gap: 50px;
+  margin-inline: 20px;
+  padding-inline: 25px;
+  margin-block-start: 25px;
+  padding-block: 12px;
+}
+
+.contentRight {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  flex: 1;
+  min-width: 0;
+}
+
+.products {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}

@@ -1,0 +1,113 @@
+.purchase {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  padding: 25px;
+  border-radius: 6px;
+  inline-size: 350px;
+  block-size: 300px;
+  border-radius: 6px;
+  background-color: #fff; /* обязательно, чтобы тень была видна */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* мягкая тень */
+}
+
+.art {
+  font-size: 14px;
+  color: #787C80;
+}
+
+.stock {
+  font-size: 13px;
+}
+
+.inStock {
+  color: green;
+  font-weight: 600;
+}
+
+.outOfStock {
+  color: red;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 30px;
+  font-weight: 700;
+  color: #003B73;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.quantity div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantitySpan {
+  font-size: 15px;
+}
+
+.quantity button {
+  width: 60px;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 900px;
+  border: none;
+}
+
+.quantity span {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.addToCart {
+  background: #186FD4;
+  color: white;
+  padding: 24px 73px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background .2s;
+}
+
+.addToCart:hover {
+  background: rgba(31, 111, 222, 0.8);
+}
+
+.buyNow {
+  background-color: #F6F8FB;
+  color: #117FE3;
+  padding: 17px 73px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.buyNow:hover {
+  opacity: .8;
+}
+
+.addToCart:disabled,
+.buyNow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,0 +1,57 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 550px;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.checkbox {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.button {
+  padding: 25px 240px;
+  background-color: #186FD4;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  pointer-events: all;
+}

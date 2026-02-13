@@ -1,0 +1,88 @@
+.wrapper {
+  padding-block: 7px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-weight: 600;
+  color: #111827;
+}
+
+.reset {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.reset:hover {
+  color: #1e40af;
+}
+
+.values {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.sliderWrapper {
+  position: relative;
+  height: 32px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  position: absolute;
+  pointer-events: all;
+  background: transparent;
+  height: 8px;
+  top: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 2px solid #fff;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 2px solid #fff;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.rangeTrack {
+  position: absolute;
+  height: 8px;
+  top: 12px;
+  background: #3b82f6;
+  border-radius: 4px;
+  z-index: 1;
+}

@@ -1,0 +1,97 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+}
+
+.menu {
+  position: absolute;
+  top: 120px;
+  left: 0;
+  right: 0;
+  background-color: #F9FAFB;
+
+  transform: translateY(-30px) scale(0.98);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0.3s;
+
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  will-change: transform, opacity;
+}
+
+.menuOpen {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    visibility 0s;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding: 24px 40px;
+}
+
+.grid ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.grid li {
+  padding: 0;
+  font-size: 14px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.grid li:hover {
+  background-color: #f2f6ff;
+}
+
+.highlight {
+  color: #1e6bd6;
+  font-weight: 600;
+}
+
+.link {
+  inline-size: 100%;
+  border-radius: 8px;
+  display: block;
+  padding: 13px 19px;
+  color: #1c1c1c;
+  text-decoration: none;
+}
+
+.link:hover {
+  background-color: #f2f6ff;
+}
+
+.columnTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+  cursor: default;
+}
+
+.active {
+  background-color: #1e6bd6;
+  color: #fff;
+  pointer-events: none;
+}

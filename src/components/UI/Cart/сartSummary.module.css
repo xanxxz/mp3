@@ -1,0 +1,52 @@
+.summary {
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background: #fff;
+  width: 400px;
+}
+
+.title {
+  font-size: 28x;
+  font-weight: 500;
+  margin: 0;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.totalSpan {
+  font-size: 22px;
+  font-weight: 400;
+  color: #003B73;
+}
+
+.checkoutBtn {
+  padding: 25px 32px;
+  background: #1e66d0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.checkoutBtn:hover {
+  background: #155ab3;
+}
+
+.checkoutBtn:disabled {
+  background: #a0c4ff;
+  cursor: not-allowed;
+  opacity: 0.6;
+}

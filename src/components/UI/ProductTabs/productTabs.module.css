@@ -1,0 +1,91 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-inline-size: 650px;
+  margin-block-end: 40px;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.buttons button {
+  flex: 1;
+  padding: 15px 5px;
+  background-color: transparent;
+  border: none;
+  max-inline-size: 180px;
+  max-block-size: 60px;
+  cursor: pointer;
+  border-bottom: 0 solid #e0e0e0;
+  transition: border-bottom 0.2s;
+  color: #96999E;
+}
+
+.buttons button:hover {
+  border-bottom: 1px solid #e0e0e0;
+    transition: border-bottom 0.2s;
+}
+
+.buttons button.active {
+  border-bottom: 1px solid #EE0906;
+  transition: border-bottom 0.2s;
+  color: #2C333D;
+}
+
+.description {
+  font-size: 15px;
+  color: #2C333D;
+  line-height: 27px;
+  font-weight: 400;
+  display: block;
+}
+
+.title {
+  font-size: 20px;
+  color: #2C333D;
+  font-weight: 600;
+  line-height: 40px;
+}
+
+.deliveryTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2C333D;
+  margin: 0;
+  line-height: 50px;
+}
+
+.deliveryText {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.ul {
+  list-style: circle;
+  margin-block: 5px;
+}
+
+.li {
+  display: list-item;
+  list-style: inside;
+  line-height: 27px;
+  font-size: 15px;
+  color: #2C333D;
+  font-weight: 400;
+  opacity: .9;
+}
+
+h5 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 20px;
+}

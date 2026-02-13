@@ -1,0 +1,141 @@
+.footer {
+  background: #F3F4F5;
+  font-size: 13px;
+  color: #333;
+  padding: 40px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #35383A;
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.contacts {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  gap: 120px;
+}
+
+.contacts div {
+  display: flex;
+  flex-direction: column;
+}
+
+.tel {
+  color: #000;
+  font-size: 21px;
+}
+
+a {
+  text-decoration: none;
+  color: #35383A;
+}
+
+.linksSection {
+  display: flex;
+  gap: 215px;
+  padding-block: 24px;
+  border-top: 1px solid #DCE1E7;
+  border-bottom: 1px solid #DCE1E7;
+}
+
+.column h4 {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.column a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.column a:hover {
+  color: #1f6fde;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-top: 8px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #DCE1E7;
+}
+
+.payment {
+  display: flex;
+  gap: 50px;
+}
+
+.payment span {
+  color: #979DA3;
+  inline-size: 100px;
+}
+
+.newsletter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.newsletter input {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.newsletter button {
+  padding: 6px 12px;
+  background: #1f6fde;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.copy {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #777;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid a {
+  font-size: 14px;
+  line-height: 35px;
+  color: #404244;
+  margin-right: 100px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+.paymentMethod {
+  display: flex;
+  gap: 45px;
+  align-items: center;
+}

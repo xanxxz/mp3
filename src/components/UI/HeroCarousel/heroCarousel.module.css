@@ -1,0 +1,78 @@
+.hero {
+  width: 95dvw;
+  min-height: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.swiper {
+  height: 100%;
+}
+
+.slide {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  border-radius: 10px;
+  min-height: 400px;
+}
+
+.content {
+  max-width: 480px;
+  color: #fff;
+}
+
+.content h1 {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.content button {
+  background: #1f6fde;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.stroke {
+  display: flex;
+  justify-content: space-around;
+  margin-block-start: 30px;
+}
+
+.strokeItem {
+  font-size: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.icon {
+  color: #1f6fde;
+}
+
+.catalogButton {
+  background: #1f6fde;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s;
+}
+
+.catalogButton:hover {
+  background: #0b1c2d;
+  transition: background .2s;
+}

@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.title {
+  font-weight: 400;
+  color: #111827;
+  font-size: 18px;
+}
+
+.options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.option {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option:hover {
+  background: #e5e7eb;
+}
+
+.option.active {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #2563eb;
+}

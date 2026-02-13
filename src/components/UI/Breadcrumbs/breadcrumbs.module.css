@@ -1,0 +1,55 @@
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 15px;
+  color: #374151;
+  margin-block-end: 30px;
+}
+
+.breadcrumbItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breadcrumbName {
+  color: #374151;
+  text-decoration: none;
+}
+
+.breadcrumbSeparator {
+  color: #374151;
+}
+
+.notFound {
+  block-size: 85dvh;
+  display: flex;
+  justify-content: center; /* по горизонтали */
+  align-items: center;     /* по вертикали */
+  font-size: 42px;
+}
+
+.div {
+  border-top: 1px solid hsl(0, 0%, 93%);
+  margin-inline: 20px;
+  padding: 16px 25px;
+}
+
+.divFlex {
+  display: flex;
+  gap: 20px;
+  align-items: baseline
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.count {
+  color: #6C7177;
+  font-size: 15px;
+  font-weight: 400;
+}

@@ -1,0 +1,151 @@
+.wrapper {
+  padding: 10px 20px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.card {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+  gap: 40px;
+}
+
+.divider {
+  width: 1px;
+  background: #e6e6e6;
+}
+
+.form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form .label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 6px;
+}
+
+.form input[type='text'],
+.form input[type='password'] {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  font-size: 14px;
+}
+
+.linkBtn {
+  background: #F6F8FB;
+  color: #117FE3;
+  border: none;
+  padding: 23px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: center;
+}
+
+.linkBtn:hover {
+  opacity: .8;
+}
+
+.primaryBtn {
+  background: #186FD4;
+  color: white;
+  border: none;
+  padding: 25px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryBtn:hover {
+  background: rgba(31, 111, 222, 0.8);
+}
+
+.promo {
+  flex: 1;
+}
+
+.promo h2 {
+  font-size: 24px;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.promo p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.darkBtn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 24px 27px;
+  background: #0f172a;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.darkBtn:hover {
+  opacity: .8;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.checkboxInput {
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6; /* современный стиль чекбокса */
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+link:active {
+  transform: translateY(1px);
+}
+
+.error {
+  color: #E52B0E;
+  font-size: 14px;
+  font-style: italic;
+  margin-inline-start: 5px;
+}
+
+.error input {
+  border: 1px solid #E52B0E;
+}
+
+.primaryBtn:disabled {
+  background: #a0c4ff; /* серый-бледно-синий, например */
+  cursor: not-allowed;
+  opacity: 0.6;
+}

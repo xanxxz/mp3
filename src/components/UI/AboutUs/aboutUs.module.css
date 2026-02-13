@@ -1,0 +1,88 @@
+p, h3, span {
+  margin: 0;
+  padding: 0;
+  color: #2C333D;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.section {
+  padding-block:  40px;
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #F3F4F5;
+}
+
+.textBox {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-inline-start: 30px;
+}
+
+.title {
+  font-size: 33px;
+  font-weight: 700;
+}
+
+.firstText {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.metrika {
+  display: flex;
+  gap: 20px;
+}
+
+.listItem {
+
+}
+
+.span {
+  color: #117FE3;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.listItemText {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 18px;
+}
+
+.secontText {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 26px;
+}
+
+.button {
+  background: #0b1c2d;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s;
+  inline-size: 252px;
+}
+
+.button:hover {
+  background: rgba(31, 111, 222, 0.9);
+}
+
+.imgBox {
+  block-size: 566px;
+}
+
+img {
+  block-size: 500px;
+}

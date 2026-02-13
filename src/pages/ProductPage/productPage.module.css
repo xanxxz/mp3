@@ -1,0 +1,41 @@
+.divFlex {
+  display: flex;
+  justify-content: space-between;
+  margin-block-end: 30px;
+}
+
+.div {
+  margin-inline: 45px;
+}
+
+.characteristics {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right {
+  display: flex;
+  gap: 30px;
+}
+
+.ulFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  cursor: default;
+  pointer-events: none;
+  border: 1px solid #EDF0F2;
+  border-radius: 6px;
+  padding: 20px;
+  margin: 0;
+  inline-size: 400px;
+}
+
+li {
+  display: flex;
+  gap: 7px;
+  color: #515257;
+  opacity: .8;
+  align-items: center;
+}
