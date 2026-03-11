@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ProductCharacteristics.module.css';
-import { ProductCharacteristic } from '../../../../__mocks__/products';
+import { ProductCharacteristic } from 'types/types';
 
 interface ProductCharacteristicsProps {
   characteristics: ProductCharacteristic[];

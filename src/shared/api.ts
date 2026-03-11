@@ -1,5 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
+const getToken = () => localStorage.getItem('token');
+
 export interface Subcategory {
   id: string;
   title: string;
@@ -20,6 +22,107 @@ export interface Brand {
   categoryIds: string[];
   productCount: number;
 }
+
+export interface RegisterData {
+  email: string;
+  phone: string;
+  name: string;
+  region: string;
+  password: string;
+}
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+const authHeader = () => ({
+  'Content-Type': 'application/json',
+  Authorization: `Bearer ${getToken()}`,
+});
+
+export const fetchCart = async () => {
+  const res = await fetch(`${API_URL}/cart`, {
+    method: 'GET',
+    headers: authHeader(),
+  });
+  if (!res.ok) throw new Error('Ошибка получения корзины');
+  return res.json();
+};
+
+export const addToCart = async (productId: string, quantity = 1) => {
+  const res = await fetch(`${API_URL}/cart`, {
+    method: 'POST',
+    headers: authHeader(),
+    body: JSON.stringify({ productId, quantity }), // тело отдельно
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Ошибка добавления в корзину');
+  }
+  return res.json();
+};
+
+export const updateCartItem = async (productId: string, quantity: number) => {
+  const res = await fetch(`${API_URL}/cart/${productId}`, {
+    method: 'PUT',
+    headers: authHeader(),
+    body: JSON.stringify({ quantity }),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Ошибка обновления количества');
+  }
+  return res.json();
+};
+
+export const removeCartItem = async (productId: string) => {
+  const token = localStorage.getItem('token'); // или откуда у тебя хранится JWT
+
+  const res = await fetch(`${API_URL}/cart/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Ошибка удаления товара');
+  }
+
+  return res.json();
+};
+
+export const registerUser = async (data: RegisterData) => {
+  const res = await fetch(`${API_URL}/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error((await res.json()).message);
+  return res.json();
+};
+
+export const loginUser = async (data: LoginData) => {
+  const res = await fetch(`${API_URL}/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error((await res.json()).message);
+  return res.json(); // вернёт { token, user }
+};
+
+export const resetPassword = async (email: string) => {
+  const res = await fetch(`${API_URL}/reset-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+  if (!res.ok) throw new Error((await res.json()).message);
+  return res.json();
+};
 
 // Получить все категории
 export const getCategories = async (): Promise<RawCategory[]> => {
@@ -109,4 +212,54 @@ export const getFiltersData = async (): Promise<{
   const brands = await brandsRes.json();
 
   return { categories, brands };
+};
+
+// shared/api.ts
+export interface CheckoutItem {
+  productId: string;
+  quantity: number;
+  price: number;
+}
+
+export interface CreateOrderBody {
+  items: CheckoutItem[]; // фронт использует только для локальной проверки
+  total: number;
+}
+
+// Создать заказ
+export const createOrder = async (body: CreateOrderBody) => {
+  if (!body.items || body.items.length === 0) {
+    throw new Error('Корзина пуста');
+  }
+
+  const payload = { total: Number(body.total) || 0 };
+
+  const res = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: authHeader(),
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ message: 'Ошибка создания заказа' }));
+    throw new Error(err.message || 'Ошибка создания заказа');
+  }
+
+  // Сервер теперь возвращает { orderId, code, total }
+  return res.json() as Promise<{ orderId: string; code: string; total: number; message: string }>;
+};
+
+// Получить заказы текущего пользователя
+export const fetchOrders = async () => {
+  const res = await fetch(`${API_URL}/orders`, {
+    method: 'GET',
+    headers: authHeader(),
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Ошибка получения заказов');
+  }
+
+  return res.json(); // массив заказов
 };

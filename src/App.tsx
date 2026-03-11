@@ -10,11 +10,16 @@ import { AuthPage } from 'pages/AuthPage/AuthPage';
 import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
 import { ResetPasswordPage } from 'pages/ResetPasswordPage/ResetPasswordPage';
 import { CartPage } from 'pages/CartPage/CartPage';
+import { Checkout } from './pages/Checkout/Checkout';
+import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
+import { AppInit } from 'AppInit';
+import { AdminPage } from 'pages/AdminPage/AdminPage';
 
 export default function App() {
   return (
     <>
       <Header />
+      <AppInit />
       <main className={styles.main}>
         <Routes>
           <Route path="/" element={ <Main /> } />
@@ -34,6 +39,9 @@ export default function App() {
           <Route path="/news" element={<About />} />
           <Route path="/contacts" element={<About />} />
           <Route path="/sale" element={<About />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </main>
       <Footer />

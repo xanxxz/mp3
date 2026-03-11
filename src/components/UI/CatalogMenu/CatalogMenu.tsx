@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import styles from './catalogMenu.module.css';
 import { useEffect } from 'react';
-import { categories, type Category } from '../../../../__mocks__/categories';
+import categoriesData from '../../../data/categories.json';
+import { Category } from 'types/types';
 
 type CatalogMenuProps = {
   isOpen: boolean;
@@ -9,6 +10,8 @@ type CatalogMenuProps = {
 };
 
 export const CatalogMenu = ({ isOpen, onClose }: CatalogMenuProps) => {
+  const categories: Category[] = categoriesData;
+
   // Формируем структуру с детьми
   const catalogRoot: (Category & { children: Category[] }) | null = (() => {
     const root = categories.find(c => c.id === '1');

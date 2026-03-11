@@ -1,0 +1,104 @@
+.wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: sans-serif;
+  height: 100dvh;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tabButton:hover {
+  color: #0077ff;
+}
+
+.activeTab {
+  border-color: #0077ff;
+  font-weight: bold;
+  color: #0077ff;
+}
+
+.tabContent {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.logoutBtn {
+  margin-top: 15px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #ff4d4f;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #e04144;
+}
+
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.ordersTable th,
+.ordersTable td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.ordersTable th {
+  background: #f9f9f9;
+  font-weight: 600;
+}
+
+.noOrders {
+  padding: 20px;
+  text-align: center;
+  color: #777;
+}
+
+.loading {
+  text-align: center;
+  padding: 50px 0;
+  font-size: 1.2rem;
+  color: #555;
+}

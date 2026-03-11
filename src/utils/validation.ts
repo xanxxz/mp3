@@ -17,6 +17,25 @@ export interface LoginFormValues {
   remember: boolean;
 }
 
+export interface CheckoutFormValues {
+  name: string;
+  phone: string;
+  address: string;
+  comment: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+}
+
+export const isCardNumber = (value: string) =>
+  /^\d{16}$/.test(value.replace(/\s/g, ''));
+
+export const isExpiry = (value: string) =>
+  /^(0[1-9]|1[0-2])\/\d{2}$/.test(value);
+
+export const isCVV = (value: string) =>
+  /^\d{3}$/.test(value);
+
 // Твои функции проверки
 export const isEmail = (value: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -95,3 +114,43 @@ export function validateReset(value: string): string {
   return '';
 }
 
+
+export function validateCheckout(
+  form: CheckoutFormValues
+): ValidationErrors<CheckoutFormValues> {
+  const errors: ValidationErrors<CheckoutFormValues> = {};
+
+  if (form.name.trim().length < 2) {
+    errors.name = 'Введите имя';
+  }
+
+  if (!form.phone.trim()) {
+    errors.phone = 'Введите телефон';
+  } else if (!isPhone(form.phone)) {
+    errors.phone = 'Некорректный номер телефона';
+  }
+
+  if (!form.address.trim()) {
+    errors.address = 'Введите адрес доставки';
+  }
+
+  if (!form.cardNumber.trim()) {
+    errors.cardNumber = 'Введите номер карты';
+  } else if (!isCardNumber(form.cardNumber)) {
+    errors.cardNumber = 'Номер карты должен содержать 16 цифр';
+  }
+
+  if (!form.expiry.trim()) {
+    errors.expiry = 'Введите срок действия';
+  } else if (!isExpiry(form.expiry)) {
+    errors.expiry = 'Формат MM/YY';
+  }
+
+  if (!form.cvv.trim()) {
+    errors.cvv = 'Введите CVV';
+  } else if (!isCVV(form.cvv)) {
+    errors.cvv = 'CVV должен содержать 3 цифры';
+  }
+
+  return errors;
+}

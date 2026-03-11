@@ -1,7 +1,8 @@
 import styles from './AuthPage.module.css';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { validateLogin, LoginFormValues } from '../../utils/validation';
+import { loginUser } from 'shared/api';
 
 export const LoginForm = () => {
   const {
@@ -16,11 +17,23 @@ export const LoginForm = () => {
     validateLogin
   );
 
+  const navigate = useNavigate();
+
+  const handleLogin = async (data: typeof values) => {
+    try {
+      const res = await loginUser(data);
+      localStorage.setItem('token', res.token);
+      navigate('/profile');
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
   return (
     <form
       noValidate
       className={styles.form}
-      onSubmit={handleSubmit(data => console.log('LOGIN:', data))}
+      onSubmit={handleSubmit(handleLogin)}
     >
       <label className={styles.label}>
         Email или логин *

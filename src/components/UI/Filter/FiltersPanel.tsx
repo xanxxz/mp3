@@ -3,10 +3,10 @@ import styles from './FiltersPanel.module.css';
 import { PriceFilter } from './PriceFilter';
 import { CheckboxFilter } from './CheckboxFilter';
 import { RadioFilter } from './RadioFilter';
-import { RawCategory } from '../../../shared/api';
-import productsMock, { ProductData } from '../../../../__mocks__/products';
-import { brands as brandsMock } from '../../../../__mocks__/brands';
-import { categories as categoriesMock } from '../../../../__mocks__/categories';
+import productsData from '../../../data/products.json';
+import brandsData from '../../../data/brands.json';
+import categoriesData from '../../../data/categories.json';
+import { ProductData, Brand, Category } from 'types/types';
 
 export interface FiltersState {
   price: { min: number | null; max: number | null };
@@ -28,27 +28,25 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({
 
   useEffect(() => setFilters(initialFilters), [initialFilters]);
 
-  const topCategories = categoriesMock.filter(c => c.parentId === '1' && c.id !== '1');
-  const subCategories = categoriesMock.filter(c => c.parentId === filters.categoryIds[0]);
+  const topCategories = categoriesData.filter(c => c.parentId === '1' && c.id !== '1');
+  const subCategories = categoriesData.filter(c => c.parentId === filters.categoryIds[0]);
 
-  // Бренды фильтруются по выбранной категории/подкатегории и мокам продуктов
   const brandOptions = useMemo(() => {
     const selectedCatId = filters.categoryIds[0];
     const selectedSubIds = filters.subcategoryIds;
 
-    const filteredProducts: ProductData[] = productsMock.filter(p => {
+    const filteredProducts: ProductData[] = productsData.filter(p => {
       if (selectedSubIds.length) return selectedSubIds.includes(p.subcategoryId);
       if (selectedCatId) {
-        const subCat = categoriesMock.find(c => c.id === p.subcategoryId);
+        const subCat = categoriesData.find(c => c.id === p.subcategoryId);
         return subCat?.parentId === selectedCatId;
       }
       return true;
     });
 
-    // считаем бренды и количество товаров
     const map: Record<string, { label: string; count: number }> = {};
     filteredProducts.forEach(p => {
-      const brand = brandsMock.find(b => b.id === p.brandId);
+      const brand = brandsData.find(b => b.id === p.brandId);
       if (!brand) return;
       if (!map[p.brandId]) map[p.brandId] = { label: brand.name, count: 1 };
       else map[p.brandId].count += 1;

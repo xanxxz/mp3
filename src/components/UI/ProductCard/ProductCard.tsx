@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProductCard.module.css';
-import { ProductData } from '../../../../__mocks__/products';
+import productsData from '../../../data/products.json';
+import { ProductData } from 'types/types';
 import ShopCart from '../../../assets/ShopCart.svg?react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../utils/store';
 import { addItem } from '../../../utils/slices/cartSlice';
+import { addToCart } from 'shared/api';
+
+const products: ProductData[] = productsData;
 
 interface ProductCardProps {
   product: ProductData;
@@ -18,16 +22,31 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, inStock = true }) =>
 
   const navigate = useNavigate();
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!inStock) return;
-    dispatch(
-      addItem({
-        ...product,
-        quantity,
-      })
-    );
-    console.log(`Добавлено в корзину: ${product.name} x${quantity}`);
+
+    try {
+      // 1. Сначала обновляем сервер
+      await addToCart(product.id, quantity);
+
+      // 2. Потом обновляем Redux корректным объектом CartItem
+      dispatch(
+        addItem({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          art: product.art,
+          images: product.images,
+          quantity,
+        })
+      );
+
+      console.log(`Добавлено в корзину (сервер + фронт): ${product.name} x${quantity}`);
+    } catch (err: any) {
+      console.error('Ошибка добавления в корзину:', err.message);
+      alert(err.message);
+    }
   };
 
   const handleClick = () => {

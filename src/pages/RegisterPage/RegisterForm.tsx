@@ -1,6 +1,8 @@
 import styles from './RegisterPage.module.css';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { validateRegister } from '../../utils/validation';
+import { registerUser } from 'shared/api';
+import { useNavigate } from 'react-router';
 
 export const RegisterForm = () => {
   const {
@@ -25,8 +27,15 @@ export const RegisterForm = () => {
     validateRegister
   );
 
-  const onSubmit = (data: typeof form) => {
-    console.log('REGISTER DATA:', data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: typeof form) => {
+    try {
+      const res = await registerUser(data);
+      navigate('/login');
+    } catch (err: any) {
+      alert(err.message);
+    }
   };
 
   return (

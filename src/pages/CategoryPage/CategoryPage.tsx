@@ -1,13 +1,13 @@
-import { Navigate, useParams } from 'react-router-dom';
-import { categories } from '../../../__mocks__/categories';
+import { Navigate, useParams, useSearchParams } from 'react-router-dom';
+import productsData from '../../data/products.json';
+import categoriesData from '../../data/categories.json';
 import { Breadcrumbs } from '../../components/UI/Breadcrumbs/Breadcrumbs';
 import { FiltersPanel, FiltersState } from '../../components/UI/Filter/FiltersPanel';
 import styles from './CategoryPage.module.css';
-import { useSearchParams } from 'react-router-dom';
-import  products from '../../../__mocks__/products';
 import { useEffect, useMemo, useState } from 'react';
 import { SortFilter, SortOption } from 'components/UI/Filter/SortFilter';
 import ProductList from 'components/UI/ProductCard/ProductCard';
+import { ProductData, Category } from 'types/types';
 
 const sortOptions: SortOption[] = [
   { id: 'price-asc', label: 'Цена по возрастанию' },
@@ -19,17 +19,16 @@ export const CategoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedSort, setSelectedSort] = useState<string>(sortOptions[0].id);
 
-  const [currentCategory, setCurrentCategory] = useState(
+  const [currentCategory, setCurrentCategory] = useState<Category | null>(
     categoryPath
-      ? categories.find(c => c.path.endsWith(categoryPath)) ?? null
+      ? (categoriesData as Category[]).find(c => c.path.endsWith(categoryPath)) ?? null
       : null
   );
 
-  // Редирект, если categoryPath задан, но категории нет
   useEffect(() => {
     if (categoryPath && !currentCategory) {
-      window.history.replaceState({}, '', '/catalog'); // пушим дефолтный путь
-      setCurrentCategory(null); // пустой каталог
+      window.history.replaceState({}, '', '/catalog');
+      setCurrentCategory(null);
     }
   }, [categoryPath, currentCategory]);
 
@@ -62,19 +61,18 @@ export const CategoryPage = () => {
 
     setSearchParams(params);
 
-    // обновляем текущую категорию по radio-кнопке
     if (filters.categoryIds.length) {
-      const cat = categories.find(c => c.id === filters.categoryIds[0]);
+      const cat = (categoriesData as Category[]).find(c => c.id === filters.categoryIds[0]);
       if (cat) setCurrentCategory(cat);
     }
   };
 
   const filteredProducts = useMemo(() => {
-     const selectedCategoryId = initialFilters.categoryIds[0];
+    const selectedCategoryId = initialFilters.categoryIds[0];
 
-    return products
+    return (productsData as ProductData[])
       .filter(p => {
-        const productCategory = categories.find(c => c.id === p.subcategoryId);
+        const productCategory = (categoriesData as Category[]).find(c => c.id === p.subcategoryId);
         return productCategory?.parentId === selectedCategoryId || p.subcategoryId === selectedCategoryId;
       })
       .filter(p => !initialFilters.price.min || p.price >= initialFilters.price.min!)
@@ -82,7 +80,6 @@ export const CategoryPage = () => {
       .filter(p => !initialFilters.subcategoryIds.length || initialFilters.subcategoryIds.includes(p.subcategoryId))
       .filter(p => !initialFilters.brands.length || initialFilters.brands.includes(p.brandId));
   }, [currentCategory, initialFilters]);
-
 
   const sortedProducts = useMemo(() => {
     return [...filteredProducts].sort((a, b) => {
@@ -105,7 +102,6 @@ export const CategoryPage = () => {
           onFiltersChange={handleFiltersChange}
         />
         <div className={styles.contentRight}>
-
           <SortFilter
             options={sortOptions}
             selectedId={selectedSort}
@@ -120,7 +116,6 @@ export const CategoryPage = () => {
               <p>Товары не найдены</p>
             )}
           </div>
-
         </div>
       </div>
     </div>

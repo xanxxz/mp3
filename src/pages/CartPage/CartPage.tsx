@@ -1,37 +1,103 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../../utils/store';
+import React, { useEffect, useState } from 'react';
 import styles from './CartPage.module.css';
-import { Link } from 'react-router';
 import { CartItemRow } from 'components/UI/Cart/CartItemsList';
 import { CartSummary } from 'components/UI/Cart/CartSummary';
 import RelatedProducts from 'components/UI/ProductsRelated/RelatedProducts';
-import products from '../../../__mocks__/products'; // моки
+import productsData from '../../data/products.json';
+import { fetchCart, updateCartItem, removeCartItem } from '../../shared/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'utils/store';
+import {
+  addItem,
+  removeItem,
+  incrementQuantity,
+  decrementQuantity,
+  clearCart,
+} from 'utils/slices/cartSlice';
+import { ProductData } from 'types/types';
 
 export const CartPage = () => {
-  const items = useSelector((state: RootState) => state.cart.items);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const [loading, setLoading] = useState(true);
 
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const allProducts = productsData as ProductData[];
 
-  const firstProduct = items.length > 0
-    ? products.find(p => p.id === items[0].id)
-    : null;
+  const loadCart = async () => {
+    setLoading(true);
+    try {
+      const serverCart = await fetchCart();
 
-  if (!items.length)
+      dispatch(clearCart());
+      serverCart.forEach((item: { productId: string; quantity: any }) => {
+        const product = allProducts.find(p => p.id === item.productId);
+        if (product) {
+          dispatch(
+            addItem({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              art: product.art,
+              images: product.images,
+              quantity: item.quantity,
+            })
+          );
+        }
+      });
+    } catch (err: any) {
+      console.error('Ошибка загрузки корзины:', err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadCart();
+  }, []);
+
+  const handleQuantityChange = async (productId: string, qty: number) => {
+    if (qty < 1) return;
+    try {
+      await updateCartItem(productId, qty);
+      const item = cartItems.find(i => i.id === productId);
+      if (!item) return;
+      if (qty > item.quantity) dispatch(incrementQuantity(productId));
+      else if (qty < item.quantity) dispatch(decrementQuantity(productId));
+    } catch (err: any) {
+      console.error('Ошибка обновления количества:', err.message);
+    }
+  };
+
+  const handleRemove = async (productId: string) => {
+    try {
+      await removeCartItem(productId);
+      dispatch(removeItem(productId));
+    } catch (err: any) {
+      console.error('Ошибка удаления товара:', err.message);
+    }
+  };
+
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  if (loading) return <p>Загрузка корзины...</p>;
+
+  if (!cartItems.length) {
     return (
-      <>
-        <h1 className={styles.title1}>Корзина</h1>
+      <div className={styles.emptyWrapper}>
         <div className={styles.empty}>
-          <p className={styles.img}>😢</p>
-          <h3>В вашей корзине пусто</h3>
-          <p>У вас пока нет товаров в корзине. На странице "Каталог" вы найдете много интересных товаров.</p>
-          <Link to="/catalog" className={styles.catalogButton}>
+          <span className={styles.emptyIcon}>🛒</span>
+          <h2>Ваша корзина пуста</h2>
+          <p>Похоже, вы ещё не добавили товары. Пора выбрать что-то интересное!</p>
+          <button
+            className={styles.catalogButton}
+            onClick={() => (window.location.href = '/catalog')}
+          >
             Перейти в каталог
-          </Link>
+          </button>
         </div>
-      </>
+      </div>
     );
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -45,8 +111,7 @@ export const CartPage = () => {
             <span>Сумма</span>
           </div>
 
-          {/* Список товаров */}
-          {items.map(item => (
+          {cartItems.map(item => (
             <CartItemRow
               key={item.id}
               id={item.id}
@@ -55,14 +120,19 @@ export const CartPage = () => {
               quantity={item.quantity}
               art={item.art}
               image={item.images?.[0]}
+              onQuantityChange={qty => handleQuantityChange(item.id, qty)}
+              onRemove={() => handleRemove(item.id)}
             />
           ))}
         </div>
 
         <CartSummary total={total} />
       </div>
-      {firstProduct && (
-        <RelatedProducts currentProduct={firstProduct} allProducts={products} />
+
+      {cartItems[0] && (
+        <RelatedProducts
+          currentProductId={cartItems[0].id}
+        />
       )}
     </div>
   );

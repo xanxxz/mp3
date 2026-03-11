@@ -1,23 +1,37 @@
 import React, { useState } from 'react';
 import styles from './ProductTabs.module.css';
-import { ProductData } from '../../../../__mocks__/products';
+import productsData from '../../../data/products.json';
+import { ProductData } from 'types/types';
 import ProductCharacteristics from '../ProductCharacteristics/ProductCharacteristics';
 
 interface ProductTabsProps {
-  product: ProductData;
+  productId: string | number;
 }
 
 type Tab = 'characteristics' | 'about' | 'delivery';
 
-const ProductTabs: React.FC<ProductTabsProps> = ({ product }) => {
+const ProductTabs: React.FC<ProductTabsProps> = ({ productId }) => {
   const [activeTab, setActiveTab] = useState<Tab>('characteristics');
+
+  // Находим продукт в JSON по id
+  const normalizedId = typeof productId === 'number' ? `p${productId}` : productId;
+  const product: ProductData | undefined = (productsData as ProductData[]).find(
+    p => p.id === normalizedId
+  );
+
+  if (!product) return <div>Продукт не найден</div>;
 
   const renderContent = () => {
     switch (activeTab) {
       case 'characteristics':
-        return <ProductCharacteristics characteristics={product.characteristics} />
+        return <ProductCharacteristics characteristics={product.characteristics} />;
       case 'about':
-        return <p className={styles.title}>О товаре "{product.name}"<span className={styles.description}>{product.description}</span></p>
+        return (
+          <p className={styles.title}>
+            О товаре "{product.name}"
+            <span className={styles.description}>{product.description}</span>
+          </p>
+        );
       case 'delivery':
         return (
           <>
@@ -48,7 +62,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({ product }) => {
                 <li className={styles.li}>Mastercard Worldwide</li>
                 <li className={styles.li}>JCB</li>
               </ul>
-              <h5>2. Наличными водителю при получение заказа</h5>
+              <h5>2. Наличными водителю при получении заказа</h5>
               <ul className={styles.ul}>
                 <li className={styles.li}>Банковской картой с помощью платежной системы на сайте или на кассе при получении заказа.</li>
                 <li className={styles.li}>Наличными на кассе при получении заказа.</li>
@@ -83,9 +97,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({ product }) => {
           Доставка и оплата
         </button>
       </div>
-      <div className={styles.content}>
-        {renderContent()}
-      </div>
+      <div className={styles.content}>{renderContent()}</div>
     </div>
   );
 };

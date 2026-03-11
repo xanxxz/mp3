@@ -1,7 +1,7 @@
 import styles from './productPage.module.css';
 import { useParams, Navigate } from 'react-router-dom';
-import products from '../../../__mocks__/products';
-import { categories } from '../../../__mocks__/categories';
+import productsData from '../../data/products.json';
+import categoriesData from '../../data/categories.json';
 import { Breadcrumbs } from '../../components/UI/Breadcrumbs/Breadcrumbs';
 import ProductGallery from 'components/UI/ProductGallery/ProductGallery';
 import ProductCharacteristics from 'components/UI/ProductCharacteristics/ProductCharacteristics';
@@ -16,19 +16,25 @@ import ProductTabs from 'components/UI/ProductTabs/ProductTabs';
 import RelatedProducts from 'components/UI/ProductsRelated/RelatedProducts';
 import { useState } from 'react';
 import { BuyNowModal } from '../../components/UI/Modal/BuyNowModal';
-
+import { ProductData, Category } from 'types/types';
 
 export const ProductPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const [isBuyOpen, setIsBuyOpen] = useState(false);
 
-
-  const product = products.find(p => p.id === productId);
+  // Находим продукт в JSON
+  const product: ProductData | undefined = (productsData as ProductData[]).find(
+    p => p.id === productId
+  );
   if (!product) return <Navigate to="/catalog" replace />;
 
-  const subcategory = categories.find(c => c.id === product.subcategoryId);
-  const category = categories.find(c => c.id === subcategory?.parentId);
-
+  // Находим подкатегорию и категорию по JSON
+  const subcategory: Category | undefined = (categoriesData as Category[]).find(
+    c => c.id === product.subcategoryId
+  );
+  const category: Category | undefined = (categoriesData as Category[]).find(
+    c => c.id === subcategory?.parentId
+  );
 
   return (
     <>
@@ -46,11 +52,14 @@ export const ProductPage = () => {
                 <li><FiDivideCircle /><span>Делаем скидки на крупные покупки</span></li>
               </ul>
             </div>
-            <ProductPurchase product={product} inStock={product.inStock}  onBuyNow={() => setIsBuyOpen(true)}/>
+            <ProductPurchase
+              productId={product.id}
+              onBuyNow={() => setIsBuyOpen(true)}
+            />
           </div>
         </div>
-        <ProductTabs product={product} />
-        <RelatedProducts currentProduct={product} allProducts={products} />
+        <ProductTabs productId={product.id} />
+        <RelatedProducts currentProductId={product.id} />
       </div>
       <BuyNowModal
         isOpen={isBuyOpen}

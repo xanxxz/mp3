@@ -22,7 +22,6 @@ export const Header = () => {
   const [results, setResults] = useState(products);
   const [showResults, setShowResults] = useState(false);
   const navigate = useNavigate();
-
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -164,16 +163,32 @@ export const Header = () => {
         </div>
 
         <div className={styles.actions}>
-          <NavLink to="/login"
-            className={({ isActive }) =>
-              isActive ? `${styles.link} ${styles.activeG}` : styles.link
-            }
-          >
-            <div className={styles.actionItem}>
-              <FiUser />
-              <span>Войти</span>
-            </div>
-          </NavLink>
+          {localStorage.getItem('token') ? (
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                isActive ? `${styles.link} ${styles.activeG}` : styles.link
+              }
+            >
+              <div className={styles.actionItem}>
+                <FiUser />
+                <span>Профиль</span>
+              </div>
+            </NavLink>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? `${styles.link} ${styles.activeG}` : styles.link
+              }
+            >
+              <div className={styles.actionItem}>
+                <FiUser />
+                <span>Войти</span>
+              </div>
+            </NavLink>
+          )}
+
           <NavLink
             to="/cart"
             className={({ isActive }) =>
@@ -186,7 +201,6 @@ export const Header = () => {
               <span>Корзина</span>
             </div>
           </NavLink>
-
         </div>
       </div>
       {isCatalogOpen && (

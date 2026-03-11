@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './breadcrumbs.module.css';
-import { Category, categories } from '../../../../__mocks__/categories';
+import categoriesData from '../../../data/categories.json'; // JSON вместо моков
+import { Category } from 'types/types';
 
 type BreadcrumbsProps = {
   category: Category | null;
@@ -16,15 +17,16 @@ type BreadcrumbItem = {
 };
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, productName, totalProducts }) => {
+  // приводим JSON к типу Category[]
+  const categories: Category[] = categoriesData;
+
   const breadcrumbs = useMemo((): BreadcrumbItem[] => {
-    // базовый путь
     const base: BreadcrumbItem[] = [{ id: 'catalog', name: 'Каталог', path: '/catalog' }];
 
     if (!category) {
       return productName ? [...base, { id: 'product', name: productName }] : base;
     }
 
-    // Только текущая категория без детей
     const currentCategory: BreadcrumbItem = {
       id: category.id,
       name: category.name,

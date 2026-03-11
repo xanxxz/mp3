@@ -2,32 +2,45 @@ import React, { useState } from 'react';
 import styles from './ResetPasswordPage.module.css';
 import { Link } from 'react-router';
 import { validateReset } from 'utils/validation';
+import { resetPassword } from 'shared/api';
 
 export const ResetPasswordPage = () => {
   const [login, setLogin] = useState('');
   const [error, setError] = useState('');
   const [newPassword, setNewPassword] = useState<string | null>(null);
 
-  const generatePassword = (length = 10) => {
-    const chars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-  };
+  function generatePassword(length = 8): string {
+      const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const lower = 'abcdefghijklmnopqrstuvwxyz';
+      const digits = '0123456789';
+      const all = upper + lower + digits;
 
-  const handleReset = () => {
-    const err = validateReset(login);
-    if (err) {
-      setError(err);
-      return;
-    }
+      let password = '';
+      // гарантируем хотя бы одну заглавную и одну цифру
+      password += upper[Math.floor(Math.random() * upper.length)];
+      password += digits[Math.floor(Math.random() * digits.length)];
 
-    const password = generatePassword();
-    setNewPassword(password);
-    console.log('Новый пароль:', password);
+      for (let i = 2; i < length; i++) {
+          password += all[Math.floor(Math.random() * all.length)];
+      }
+
+      // перемешиваем, чтобы первые символы не были всегда заглавная + цифра
+      password = password.split('').sort(() => 0.5 - Math.random()).join('');
+
+      return password;
+  }
+
+  const newPasswordD = generatePassword(10);
+
+  const handleReset = async () => {
+    try {
+      await resetPassword(login);
+      alert('Пароль сброшен, проверьте email');
+      setNewPassword(newPasswordD); // можно убрать, если хочешь показывать реальный
+    } catch (err: any) {
+      console.error('Ошибка сброса пароля:', err.message);
+      setError(err.message);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
