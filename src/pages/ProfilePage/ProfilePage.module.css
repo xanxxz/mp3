@@ -72,6 +72,23 @@
   background-color: #e04144;
 }
 
+.adminBtn {
+  margin-top: 15px;
+  margin-inline-end: 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #0077ff;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+}
+
+.adminBtn:hover {
+  background-color: #0b1c2d;
+}
+
 .ordersTable {
   width: 100%;
   border-collapse: collapse;

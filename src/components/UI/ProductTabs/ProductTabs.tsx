@@ -1,30 +1,22 @@
 import React, { useState } from 'react';
 import styles from './ProductTabs.module.css';
-import productsData from '../../../data/products.json';
 import { ProductData } from 'types/types';
 import ProductCharacteristics from '../ProductCharacteristics/ProductCharacteristics';
 
 interface ProductTabsProps {
-  productId: string | number;
+  product: ProductData;
 }
 
 type Tab = 'characteristics' | 'about' | 'delivery';
 
-const ProductTabs: React.FC<ProductTabsProps> = ({ productId }) => {
+const ProductTabs: React.FC<ProductTabsProps> = ({ product }) => {
   const [activeTab, setActiveTab] = useState<Tab>('characteristics');
-
-  // Находим продукт в JSON по id
-  const normalizedId = typeof productId === 'number' ? `p${productId}` : productId;
-  const product: ProductData | undefined = (productsData as ProductData[]).find(
-    p => p.id === normalizedId
-  );
-
-  if (!product) return <div>Продукт не найден</div>;
 
   const renderContent = () => {
     switch (activeTab) {
       case 'characteristics':
         return <ProductCharacteristics characteristics={product.characteristics} />;
+
       case 'about':
         return (
           <p className={styles.title}>
@@ -32,6 +24,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({ productId }) => {
             <span className={styles.description}>{product.description}</span>
           </p>
         );
+
       case 'delivery':
         return (
           <>
@@ -41,35 +34,13 @@ const ProductTabs: React.FC<ProductTabsProps> = ({ productId }) => {
                 Мы всегда готовы доставить приобретенный Вами товар в удобное для Вас время.
                 <span className={styles.bold}> Стоимость доставки</span> товаров
                 определяется исходя из <span className={styles.bold}> веса</span>,
-                <span className={styles.bold}> габаритов</span> и <span className={styles.bold}> удаленности</span> до места назначения.
-                Доставка осуществляется до подъезда дома, офиса.
-                Наш интернет-магазин предлагает несколько вариантов получения товара:
+                <span className={styles.bold}> габаритов</span> и
+                <span className={styles.bold}> удаленности</span> до места назначения.
               </p>
-              <ul className={styles.ul}>
-                <li className={styles.li}>Самовывоз с территории компании.</li>
-                <li className={styles.li}>Быстрая доставка по Саратовской области.</li>
-                <li className={styles.li}>Доставка транспортной компанией.</li>
-                <li className={styles.li}>Почтой России.</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className={styles.deliveryTitle}>Оплата</h4>
-              <p className={styles.deliveryText}>Оплатить свои покупки вы можете:</p>
-              <h5>1. Банковской картой с помощью платежной системы на сайте</h5>
-              <ul className={styles.ul}>
-                <li className={styles.li}>МИР</li>
-                <li className={styles.li}>VISA International</li>
-                <li className={styles.li}>Mastercard Worldwide</li>
-                <li className={styles.li}>JCB</li>
-              </ul>
-              <h5>2. Наличными водителю при получении заказа</h5>
-              <ul className={styles.ul}>
-                <li className={styles.li}>Банковской картой с помощью платежной системы на сайте или на кассе при получении заказа.</li>
-                <li className={styles.li}>Наличными на кассе при получении заказа.</li>
-              </ul>
             </div>
           </>
         );
+
       default:
         return null;
     }
@@ -84,12 +55,14 @@ const ProductTabs: React.FC<ProductTabsProps> = ({ productId }) => {
         >
           Характеристики
         </button>
+
         <button
           className={activeTab === 'about' ? styles.active : ''}
           onClick={() => setActiveTab('about')}
         >
           О товаре
         </button>
+
         <button
           className={activeTab === 'delivery' ? styles.active : ''}
           onClick={() => setActiveTab('delivery')}
@@ -97,6 +70,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({ productId }) => {
           Доставка и оплата
         </button>
       </div>
+
       <div className={styles.content}>{renderContent()}</div>
     </div>
   );

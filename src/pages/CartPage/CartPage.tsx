@@ -3,10 +3,13 @@ import styles from './CartPage.module.css';
 import { CartItemRow } from 'components/UI/Cart/CartItemsList';
 import { CartSummary } from 'components/UI/Cart/CartSummary';
 import RelatedProducts from 'components/UI/ProductsRelated/RelatedProducts';
-import productsData from '../../data/products.json';
-import { fetchCart, updateCartItem, removeCartItem } from '../../shared/api';
+
+import { fetchCart, updateCartItem, removeCartItem, fetchAllProducts } from '../../shared/api';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'utils/store';
+import { useNavigate } from 'react-router-dom';
+
 import {
   addItem,
   removeItem,
@@ -14,38 +17,46 @@ import {
   decrementQuantity,
   clearCart,
 } from 'utils/slices/cartSlice';
-import { ProductData } from 'types/types';
+
+import { ErrorModal } from 'components/UI/Modal/ErrorModal';
 
 export const CartPage = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const [loading, setLoading] = useState(true);
-
-  const allProducts = productsData as ProductData[];
+  const [errorOpen, setErrorOpen] = useState(false);
+  const navigate = useNavigate();
 
   const loadCart = async () => {
     setLoading(true);
+
     try {
-      const serverCart = await fetchCart();
+      const [serverCart, products] = await Promise.all([
+        fetchCart(),
+        fetchAllProducts(),
+      ]);
+
+      const productMap = new Map(products.map(p => [p.id, p]));
 
       dispatch(clearCart());
-      serverCart.forEach((item: { productId: string; quantity: any }) => {
-        const product = allProducts.find(p => p.id === item.productId);
+
+      serverCart.forEach((item: { productId: string; quantity: number }) => {
+        const product = productMap.get(item.productId);
+
         if (product) {
           dispatch(
             addItem({
               id: product.id,
               name: product.name,
               price: product.price,
-              art: product.art,
               images: product.images,
               quantity: item.quantity,
             })
           );
         }
       });
-    } catch (err: any) {
-      console.error('Ошибка загрузки корзины:', err.message);
+    } catch (err) {
+      setErrorOpen(true);
     } finally {
       setLoading(false);
     }
@@ -90,7 +101,7 @@ export const CartPage = () => {
           <p>Похоже, вы ещё не добавили товары. Пора выбрать что-то интересное!</p>
           <button
             className={styles.catalogButton}
-            onClick={() => (window.location.href = '/catalog')}
+            onClick={() => navigate('/catalog')}
           >
             Перейти в каталог
           </button>
@@ -134,6 +145,12 @@ export const CartPage = () => {
           currentProductId={cartItems[0].id}
         />
       )}
+      <ErrorModal
+        isOpen={errorOpen}
+        title="Ошибка загрузки корзины"
+        message="Попробуйте позже"
+        onClose={() => setErrorOpen(false)}
+      />
     </div>
   );
 };

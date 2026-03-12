@@ -1,6 +1,4 @@
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
-import productsData from '../../data/products.json';
-import categoriesData from '../../data/categories.json';
 import { Breadcrumbs } from '../../components/UI/Breadcrumbs/Breadcrumbs';
 import { FiltersPanel, FiltersState } from '../../components/UI/Filter/FiltersPanel';
 import styles from './CategoryPage.module.css';
@@ -8,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { SortFilter, SortOption } from 'components/UI/Filter/SortFilter';
 import ProductList from 'components/UI/ProductCard/ProductCard';
 import { ProductData, Category } from 'types/types';
+import { fetchAllCategories, fetchAllProducts } from 'shared/api';
 
 const sortOptions: SortOption[] = [
   { id: 'price-asc', label: 'Цена по возрастанию' },
@@ -19,18 +18,37 @@ export const CategoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedSort, setSelectedSort] = useState<string>(sortOptions[0].id);
 
-  const [currentCategory, setCurrentCategory] = useState<Category | null>(
-    categoryPath
-      ? (categoriesData as Category[]).find(c => c.path.endsWith(categoryPath)) ?? null
-      : null
-  );
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<ProductData[]>([]);
+  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
 
   useEffect(() => {
-    if (categoryPath && !currentCategory) {
-      window.history.replaceState({}, '', '/catalog');
+    const fetchData = async () => {
+      const cats = await fetchAllCategories();
+      setCategories(cats);
+
+      const prodsApi = await fetchAllProducts();
+      const prods: ProductData[] = prodsApi.map(p => ({
+        ...p,
+        characteristics: p.characteristics ?? [],
+      }));
+      setProducts(prods);
+
+      if (categoryPath) {
+        const cat = cats.find(c => c.path.endsWith(categoryPath)) ?? null;
+        setCurrentCategory(cat);
+        if (!cat) window.history.replaceState({}, '', '/catalog');
+      }
+    };
+
+    fetchData();
+
+    // очистка при смене категории
+    return () => {
+      setProducts([]);
       setCurrentCategory(null);
-    }
-  }, [categoryPath, currentCategory]);
+    };
+  }, [categoryPath]);
 
   const initialFilters: FiltersState = {
     price: {
@@ -62,24 +80,26 @@ export const CategoryPage = () => {
     setSearchParams(params);
 
     if (filters.categoryIds.length) {
-      const cat = (categoriesData as Category[]).find(c => c.id === filters.categoryIds[0]);
+      const cat = categories.find(c => c.id === filters.categoryIds[0]);
       if (cat) setCurrentCategory(cat);
     }
   };
 
   const filteredProducts = useMemo(() => {
+    if (!categories.length) return [];
+
     const selectedCategoryId = initialFilters.categoryIds[0];
 
-    return (productsData as ProductData[])
+    return products
       .filter(p => {
-        const productCategory = (categoriesData as Category[]).find(c => c.id === p.subcategoryId);
+        const productCategory = categories.find(c => c.id === p.subcategoryId);
         return productCategory?.parentId === selectedCategoryId || p.subcategoryId === selectedCategoryId;
       })
       .filter(p => !initialFilters.price.min || p.price >= initialFilters.price.min!)
       .filter(p => !initialFilters.price.max || p.price <= initialFilters.price.max!)
       .filter(p => !initialFilters.subcategoryIds.length || initialFilters.subcategoryIds.includes(p.subcategoryId))
       .filter(p => !initialFilters.brands.length || initialFilters.brands.includes(p.brandId));
-  }, [currentCategory, initialFilters]);
+  }, [products, categories, currentCategory, initialFilters]);
 
   const sortedProducts = useMemo(() => {
     return [...filteredProducts].sort((a, b) => {
@@ -100,6 +120,8 @@ export const CategoryPage = () => {
         <FiltersPanel
           initialFilters={initialFilters}
           onFiltersChange={handleFiltersChange}
+          products={products}   // передаём продукты с сервера
+          categories={categories} // категории с сервера
         />
         <div className={styles.contentRight}>
           <SortFilter

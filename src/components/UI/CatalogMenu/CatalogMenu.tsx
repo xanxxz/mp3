@@ -1,8 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styles from './catalogMenu.module.css';
-import { useEffect } from 'react';
-import categoriesData from '../../../data/categories.json';
-import { Category } from 'types/types';
+import { useEffect, useState } from 'react';
+import { RawCategory as Category, fetchAllCategories } from '../../../shared/api'; // твой файл с fetch
 
 type CatalogMenuProps = {
   isOpen: boolean;
@@ -10,7 +9,26 @@ type CatalogMenuProps = {
 };
 
 export const CatalogMenu = ({ isOpen, onClose }: CatalogMenuProps) => {
-  const categories: Category[] = categoriesData;
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Получаем категории с сервера
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchAllCategories();
+        setCategories(data);
+      } catch (err: any) {
+        setError(err.message || 'Ошибка загрузки категорий');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCategories();
+  }, []);
 
   // Формируем структуру с детьми
   const catalogRoot: (Category & { children: Category[] }) | null = (() => {
@@ -27,6 +45,9 @@ export const CatalogMenu = ({ isOpen, onClose }: CatalogMenuProps) => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  if (loading) return <p>Загрузка категорий...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className={styles.wrapper} onClick={onClose}>

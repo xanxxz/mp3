@@ -14,6 +14,7 @@ import { Checkout } from './pages/Checkout/Checkout';
 import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
 import { AppInit } from 'AppInit';
 import { AdminPage } from 'pages/AdminPage/AdminPage';
+import { AdminRoute } from 'utils/AdminRoute';
 
 export default function App() {
   return (
@@ -41,7 +42,14 @@ export default function App() {
           <Route path="/sale" element={<About />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminPage />
+              </AdminRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />

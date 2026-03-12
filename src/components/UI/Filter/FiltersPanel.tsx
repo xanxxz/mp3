@@ -18,27 +18,32 @@ export interface FiltersState {
 type FiltersPanelProps = {
   initialFilters: FiltersState;
   onFiltersChange?: (filters: FiltersState) => void;
+  products: ProductData[];
+  categories: Category[];
 };
 
 export const FiltersPanel: React.FC<FiltersPanelProps> = ({
   initialFilters,
   onFiltersChange,
+  products,
+  categories
 }) => {
   const [filters, setFilters] = useState<FiltersState>(initialFilters);
 
   useEffect(() => setFilters(initialFilters), [initialFilters]);
 
-  const topCategories = categoriesData.filter(c => c.parentId === '1' && c.id !== '1');
-  const subCategories = categoriesData.filter(c => c.parentId === filters.categoryIds[0]);
+  const topCategories = categories.filter(c => c.parentId === '1' && c.id !== '1');
+  const subCategories = categories.filter(c => c.parentId === filters.categoryIds[0]);
 
+  // бренды остаются локальные
   const brandOptions = useMemo(() => {
     const selectedCatId = filters.categoryIds[0];
     const selectedSubIds = filters.subcategoryIds;
 
-    const filteredProducts: ProductData[] = productsData.filter(p => {
+    const filteredProducts: ProductData[] = products.filter(p => {
       if (selectedSubIds.length) return selectedSubIds.includes(p.subcategoryId);
       if (selectedCatId) {
-        const subCat = categoriesData.find(c => c.id === p.subcategoryId);
+        const subCat = categories.find(c => c.id === p.subcategoryId);
         return subCat?.parentId === selectedCatId;
       }
       return true;
@@ -53,7 +58,7 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({
     });
 
     return Object.entries(map).map(([id, { label, count }]) => ({ id, label, count }));
-  }, [filters.categoryIds, filters.subcategoryIds]);
+  }, [filters.categoryIds, filters.subcategoryIds, products, categories]);
 
   const updateFilters = (next: FiltersState) => {
     setFilters(next);
@@ -72,36 +77,42 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({
 
       <RadioFilter
         title="Категории"
-        options={topCategories.map(c => ({
-          id: c.id,
-          label: c.name,
-          count: c.productCount,
-        }))}
+        options={topCategories.map(c => ({ id: c.id, label: c.name }))}
         selectedId={filters.categoryIds[0] || ''}
         onChange={id => updateFilters({ ...filters, categoryIds: id ? [id] : [], subcategoryIds: [] })}
+        products={products} // серверные продукты
+        getCount={(id, products) =>
+          products.filter(p => {
+            const subCat = categories.find(c => c.id === p.subcategoryId); // серверные категории
+            return p.subcategoryId === id || subCat?.parentId === id;
+          }).length
+        }
       />
 
-      {subCategories.length > 0 && (
-        <CheckboxFilter
-          title="Подкатегории"
-          options={subCategories.map(c => ({
-            id: c.id,
-            label: c.name,
-            count: c.productCount,
-          }))}
-          selectedIds={filters.subcategoryIds}
-          onChange={ids => updateFilters({ ...filters, subcategoryIds: ids })}
-        />
-      )}
+      <CheckboxFilter
+        title="Подкатегории"
+        options={subCategories.map(c => ({ id: c.id, label: c.name }))}
+        selectedIds={filters.subcategoryIds}
+        onChange={ids => updateFilters({ ...filters, subcategoryIds: ids })}
+        products={products} // серверные продукты
+        getCount={(id, products) => products.filter(p => p.subcategoryId === id).length}
+      />
 
-      {brandOptions.length > 0 && (
-        <CheckboxFilter
-          title="Бренды"
-          options={brandOptions}
-          selectedIds={filters.brands}
-          onChange={ids => updateFilters({ ...filters, brands: ids })}
-        />
-      )}
+      <CheckboxFilter
+        title="Бренды"
+        options={brandOptions.map(b => ({ id: b.id, label: b.label }))}
+        selectedIds={filters.brands}
+        onChange={ids => updateFilters({ ...filters, brands: ids })}
+        products={products.filter(p => {
+          if (filters.subcategoryIds.length) return filters.subcategoryIds.includes(p.subcategoryId);
+          if (filters.categoryIds.length) {
+            const subCat = categories.find(c => c.id === p.subcategoryId);
+            return subCat?.parentId === filters.categoryIds[0];
+          }
+          return true;
+        })} // серверные продукты
+        getCount={(id, products) => products.filter(p => p.brandId === id).length}
+      />
     </aside>
   );
 };

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './radioFilter.module.css';
+import type { ProductData } from 'types/types';
 
 export interface RadioOption {
   id: string;
@@ -12,6 +13,8 @@ type RadioFilterProps = {
   options: RadioOption[];
   selectedId: string | null;
   onChange: (id: string) => void;
+  products: ProductData[]; // список товаров для подсчёта
+  getCount?: (optionId: string, products: ProductData[]) => number; // кастомная функция подсчёта
 };
 
 export const RadioFilter: React.FC<RadioFilterProps> = ({
@@ -19,10 +22,19 @@ export const RadioFilter: React.FC<RadioFilterProps> = ({
   options,
   selectedId,
   onChange,
+  products,
+  getCount = (id, products) => products.filter(p => p.subcategoryId === id).length
 }) => {
   const handleChange = (id: string) => {
     onChange(id);
   };
+
+  const optionsWithCounts = useMemo(() => {
+    return options.map(opt => ({
+      ...opt,
+      count: getCount(opt.id, products)
+    }));
+  }, [options, products, getCount]);
 
   const handleReset = () => {
     onChange('');
@@ -32,10 +44,13 @@ export const RadioFilter: React.FC<RadioFilterProps> = ({
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <span>{title}</span>
+        <button type="button" onClick={handleReset} className={styles.reset}>
+          Сбросить
+        </button>
       </div>
 
       <div className={styles.list}>
-        {options.map(opt => (
+        {optionsWithCounts.map(opt => (
           <label key={opt.id} className={styles.item}>
             <input
               type="radio"

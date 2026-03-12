@@ -6,8 +6,11 @@ import { fetchOrders } from 'shared/api';
 interface User {
   id: number;
   email: string;
+  phone: string;
   name: string;
   region: string;
+  role: 'user' | 'admin';
+  created_at: string;
 }
 
 interface Order {
@@ -80,9 +83,19 @@ export const ProfilePage = () => {
           <div className={styles.card}>
             <p><strong>ID:</strong> {user.id}</p>
             <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Телефон:</strong> {user.phone}</p>
             <p><strong>ФИО:</strong> {user.name}</p>
             <p><strong>Регион:</strong> {user.region}</p>
+            <p><strong>Дата регистрации:</strong> {new Date(user.created_at).toLocaleString()}</p>
 
+            {user.role === 'admin' && (
+              <button
+                className={styles.adminBtn}
+                onClick={() => navigate('/admin')}
+              >
+                Админ панель
+              </button>
+            )}
             <button
               className={styles.logoutBtn}
               onClick={() => {

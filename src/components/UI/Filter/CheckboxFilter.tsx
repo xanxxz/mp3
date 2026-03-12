@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './CheckboxFilter.module.css';
+import type { ProductData } from 'types/types';
 
 export interface CheckboxOption {
   id: string;
@@ -12,6 +13,8 @@ type CheckboxFilterProps = {
   options: CheckboxOption[];
   selectedIds: string[];
   onChange: (next: string[]) => void;
+  products: ProductData[]; // все товары, на основе которых считаем count
+  getCount?: (optionId: string, products: ProductData[]) => number; // функция подсчёта
 };
 
 export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
@@ -19,6 +22,8 @@ export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
   options,
   selectedIds,
   onChange,
+  products,
+  getCount = (id, products) => products.filter(p => p.subcategoryId === id).length
 }) => {
   const toggle = (id: string) => {
     if (selectedIds.includes(id)) {
@@ -30,6 +35,14 @@ export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
 
   const handleReset = () => onChange([]);
 
+  // динамически считаем count для каждого option
+  const optionsWithCounts = useMemo(() => {
+    return options.map(opt => ({
+      ...opt,
+      count: getCount(opt.id, products)
+    }));
+  }, [options, products, getCount]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -40,7 +53,7 @@ export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
       </div>
 
       <div className={styles.list}>
-        {options.map((opt) => {
+        {optionsWithCounts.map(opt => {
           const checked = selectedIds.includes(opt.id);
           return (
             <label key={opt.id} className={styles.item}>

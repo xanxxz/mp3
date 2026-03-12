@@ -6,22 +6,30 @@
   color: #333;
 }
 
-h1 {
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.titlte {
   font-size: 2rem;
   margin-bottom: 25px;
   text-align: center;
 }
 
-h2 {
+.subtitle {
+  margin: 0;
   font-size: 1.3rem;
   margin-top: 30px;
   margin-bottom: 10px;
   color: #444;
+  text-align: center;
 }
 
-input, select {
+.input, .select {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   padding: 8px 12px;
   width: 300px;
   border: 1px solid #ccc;
@@ -29,14 +37,18 @@ input, select {
   font-size: 1rem;
 }
 
-label {
+.input::placeholder {
+  font-size: 14px;
+}
+
+.label {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-button {
+.button {
   padding: 8px 16px;
   background-color: #0077ff;
   color: white;
@@ -45,19 +57,81 @@ button {
   cursor: pointer;
   font-weight: 500;
   transition: 0.2s;
-  margin-bottom: 20px;
 }
 
-button:hover {
+.addButton {
+  padding: 16px 32px;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+  margin-block-start: 15px;
+}
+
+.addButton:hover {
   background-color: #005fcc;
 }
 
-ul {
+.button:hover {
+  background-color: #005fcc;
+}
+
+.ul {
   list-style: none;
   padding: 0;
 }
 
-ul li {
+.ul li {
   padding: 6px 0;
   border-bottom: 1px solid #eee;
+}
+
+.categoriesId {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-inline-start: 5px;
+  margin-bottom: 10px;
+}
+
+.div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.span {
+  margin: 0;
+  color: #555;
+  font-size: 13px;
+}
+
+.text {
+  font-size: 15px;
+  margin: 0;
+  margin-block-start: 15px;
+  margin-block-end: 5px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.labelCheckbox {
+  margin-block-start: 20px;
+  margin-block-end: 20px;
+  gap: 2px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.labelCheckbox .text {
+  margin: 0;
 }
