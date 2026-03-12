@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import styles from './ProfilePage.module.css';
 import { fetchOrders } from 'shared/api';
+import Loader from 'components/UI/Loader/Loader';
 
 interface User {
   id: number;
@@ -56,7 +57,7 @@ export const ProfilePage = () => {
     fetchProfile();
   }, [navigate]);
 
-  if (loading) return <div className={styles.loading}>Загрузка...</div>;
+  if (loading) return <div className={styles.loading}><Loader size={40} color="#4f46e5" /></div>;
   if (!user) return null;
 
   return (

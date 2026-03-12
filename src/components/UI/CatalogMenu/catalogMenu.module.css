@@ -94,3 +94,10 @@ li {
   color: #fff;
   pointer-events: none;
 }
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}

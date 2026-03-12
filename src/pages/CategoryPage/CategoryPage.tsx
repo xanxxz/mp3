@@ -7,6 +7,7 @@ import { SortFilter, SortOption } from 'components/UI/Filter/SortFilter';
 import ProductList from 'components/UI/ProductCard/ProductCard';
 import { ProductData, Category } from 'types/types';
 import { fetchAllCategories, fetchAllProducts } from 'shared/api';
+import Loader from '../../components/UI/Loader/Loader'; // импортируем лоадер
 
 const sortOptions: SortOption[] = [
   { id: 'price-asc', label: 'Цена по возрастанию' },
@@ -21,29 +22,36 @@ export const CategoryPage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<ProductData[]>([]);
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
+  const [loading, setLoading] = useState(true); // состояние загрузки
 
   useEffect(() => {
     const fetchData = async () => {
-      const cats = await fetchAllCategories();
-      setCategories(cats);
+      setLoading(true);
+      try {
+        const cats = await fetchAllCategories();
+        setCategories(cats);
 
-      const prodsApi = await fetchAllProducts();
-      const prods: ProductData[] = prodsApi.map(p => ({
-        ...p,
-        characteristics: p.characteristics ?? [],
-      }));
-      setProducts(prods);
+        const prodsApi = await fetchAllProducts();
+        const prods: ProductData[] = prodsApi.map(p => ({
+          ...p,
+          characteristics: p.characteristics ?? [],
+        }));
+        setProducts(prods);
 
-      if (categoryPath) {
-        const cat = cats.find(c => c.path.endsWith(categoryPath)) ?? null;
-        setCurrentCategory(cat);
-        if (!cat) window.history.replaceState({}, '', '/catalog');
+        if (categoryPath) {
+          const cat = cats.find(c => c.path.endsWith(categoryPath)) ?? null;
+          setCurrentCategory(cat);
+          if (!cat) window.history.replaceState({}, '', '/catalog');
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки данных:', err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
 
-    // очистка при смене категории
     return () => {
       setProducts([]);
       setCurrentCategory(null);
@@ -120,8 +128,8 @@ export const CategoryPage = () => {
         <FiltersPanel
           initialFilters={initialFilters}
           onFiltersChange={handleFiltersChange}
-          products={products}   // передаём продукты с сервера
-          categories={categories} // категории с сервера
+          products={products}
+          categories={categories}
         />
         <div className={styles.contentRight}>
           <SortFilter
@@ -130,7 +138,11 @@ export const CategoryPage = () => {
             onChange={setSelectedSort}
           />
           <div className={styles.products}>
-            {sortedProducts.length > 0 ? (
+            {loading ? (
+              <div className={styles.loaderWrapper}>
+                <Loader size={40} color="#4f46e5" /> {/* маленький лоадер */}
+              </div>
+            ) : sortedProducts.length > 0 ? (
               sortedProducts.map(product => (
                 <ProductList key={product.id} product={product} inStock={product.inStock}/>
               ))

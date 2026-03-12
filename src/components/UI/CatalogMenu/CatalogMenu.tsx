@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './catalogMenu.module.css';
 import { useEffect, useState } from 'react';
 import { RawCategory as Category, fetchAllCategories } from '../../../shared/api'; // твой файл с fetch
+import Loader from '../Loader/Loader';
 
 type CatalogMenuProps = {
   isOpen: boolean;
@@ -46,7 +47,7 @@ export const CatalogMenu = ({ isOpen, onClose }: CatalogMenuProps) => {
     };
   }, [isOpen]);
 
-  if (loading) return <p>Загрузка категорий...</p>;
+  if (loading) return <Loader fullscreen />;
   if (error) return <p>{error}</p>;
 
   return (

@@ -19,6 +19,7 @@ import {
 } from 'utils/slices/cartSlice';
 
 import { ErrorModal } from 'components/UI/Modal/ErrorModal';
+import Loader from 'components/UI/Loader/Loader';
 
 export const CartPage = () => {
   const dispatch = useDispatch();
@@ -90,7 +91,7 @@ export const CartPage = () => {
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  if (loading) return <p>Загрузка корзины...</p>;
+  if (loading) return <Loader fullscreen />;
 
   if (!cartItems.length) {
     return (

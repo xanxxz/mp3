@@ -12,15 +12,11 @@ import ProductTabs from 'components/UI/ProductTabs/ProductTabs';
 import RelatedProducts from 'components/UI/ProductsRelated/RelatedProducts';
 import { BuyNowModal } from '../../components/UI/Modal/BuyNowModal';
 
-import {
-  FiCreditCard,
-  FiList,
-  FiBox,
-  FiDivideCircle
-} from 'react-icons/fi';
+import { FiCreditCard, FiList, FiBox, FiDivideCircle } from 'react-icons/fi';
 
 import { ProductData, Category } from 'types/types';
 import { fetchProductById } from 'shared/api';
+import Loader from '../../components/UI/Loader/Loader'; // импортируем fullscreen Loader
 
 export const ProductPage = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -32,6 +28,7 @@ export const ProductPage = () => {
   useEffect(() => {
     if (!productId) return;
 
+    setLoading(true);
     fetchProductById(productId)
       .then((data) => {
         setProduct(data as ProductData);
@@ -42,7 +39,7 @@ export const ProductPage = () => {
       .finally(() => setLoading(false));
   }, [productId]);
 
-  if (loading) return null;
+  if (loading) return <Loader fullscreen />; // показываем красивый fullscreen Loader
 
   if (!product) return <Navigate to="/catalog" replace />;
 

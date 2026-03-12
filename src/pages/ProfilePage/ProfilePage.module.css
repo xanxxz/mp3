@@ -114,8 +114,8 @@
 }
 
 .loading {
-  text-align: center;
-  padding: 50px 0;
-  font-size: 1.2rem;
-  color: #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
 }

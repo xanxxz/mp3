@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from 'utils/slices/cartSlice';
 import { RootState } from 'utils/store';
 import { createOrder, CreateOrderBody } from 'shared/api';
+import Loader from 'components/UI/Loader/Loader';
 
 export const Checkout: React.FC = () => {
   const navigate = useNavigate();
