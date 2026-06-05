@@ -1,4 +1,4 @@
-import styles from './RegisterPage.module.css';
+import styles from './registerPage.module.css';
 import { RegisterForm } from './RegisterForm';
 import { LoginPromo } from './LoginPromo';
 
