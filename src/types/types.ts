@@ -1,4 +1,3 @@
-// types.ts
 export interface ProductCharacteristic {
   name: string;
   value: string;
@@ -21,7 +20,7 @@ export interface Brand {
   id: string;
   name: string;
   productCount: number;
-  categoryIds: string[]; // в каких категориях есть товары бренда
+  categoryIds: string[]; 
 }
 
 export interface Category {

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../utils/store';
 import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
-import Logo from '../../../assets/Logo.svg?react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CatalogMenu } from '../CatalogMenu/CatalogMenu';
 import styles from './header.module.css';
@@ -60,7 +59,7 @@ export const Header = () => {
 
       <div className={styles.bottom}>
         <div className={styles.logo}>
-          <Link to="/"><Logo /></Link>
+          <Link to="/"><img src="/images/products/logo.png" alt="Logo" className={styles.logoImg}/></Link>
         </div>
 
         <button

@@ -14,18 +14,17 @@ export const Footer = () => {
       {/* Верхняя часть: логотип и контакты */}
       <div className={styles.top}>
         <div className={styles.logoSection}>
-          <Logo />
-          <span>ООО «Стройоптторг»</span>
+          <img src="/images/products/logo.png" alt="Logo" className={styles.logoImg}/>
         </div>
 
         <div className={styles.contacts}>
           <div>
-            <span>ИНН: 0901051787</span>
-            <span>КПП: 090101001</span>
+            <span>ИНН: 09010517874636</span>
+            <span>КПП: 090101001436</span>
           </div>
           <div>
             <span>Email:</span>
-            <a href="mailto:info@stroiopttorg.ru">info@stroiopttorg.ru</a>
+            <a href="mailto:info@stroiopttorg.ru">info@stroimarket.ru</a>
           </div>
           <div>
             <span className={styles.tel}>
@@ -90,7 +89,6 @@ export const Footer = () => {
 
       {/* Мелкий текст */}
       <div className={styles.copy}>
-        <span>© 2006-2026 Интернет-магазин ООО «Стройоптторг»</span>
         <span>Разработка сайта: <a href="https://t.me/sssvam2">Даниил Дейнега</a></span>
         <Link to="/privacy">Политика конфиденциальности</Link>
       </div>

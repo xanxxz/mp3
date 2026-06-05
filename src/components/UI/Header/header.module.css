@@ -59,6 +59,12 @@
   gap: 12px;
 }
 
+.logoImg {
+  width: 330px;
+  height: 60px;
+  object-fit: cover;
+}
+
 .logoIcon {
   width: 40px;
   height: 40px;

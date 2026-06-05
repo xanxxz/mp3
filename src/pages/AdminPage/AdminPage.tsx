@@ -1,57 +1,88 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { ProductData, Category } from '../../types/types';
-import productsData from '../../data/products.json';
 import categoriesData from '../../data/categories.json';
 import styles from './AdminPage.module.css';
-import { addCategoryApi, addProductApi, RawCategory } from '../../shared/api';
+import {
+  addCategoryApi,
+  addProductApi,
+  RawCategory,
+} from '../../shared/api';
 
 export const AdminPage = () => {
-  const [products, setProducts] = useState<ProductData[]>(productsData);
+  // Товары теперь получаем с backend
+  const [products, setProducts] = useState<ProductData[]>([]);
+
+  // Категории пока оставляем из JSON
   const [categories, setCategories] = useState<Category[]>(categoriesData);
 
-  // Состояние для нового товара
+  // Состояние нового товара
   const [newProduct, setNewProduct] = useState<Partial<ProductData>>({
     name: '',
     price: undefined,
     brandId: '',
     subcategoryId: '',
-    images: [],                // массив для URL картинок
-    characteristics: [],       // массив объектов { name, value }
+    images: [],
+    characteristics: [],
     inStock: true,
-    description: '',           // описание товара
+    description: '',
   });
 
-  // Состояние для новой категории
+  // Состояние новой категории
   const [newCategoryId, setNewCategoryId] = useState('');
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newCategoryParentId, setNewCategoryParentId] = useState('');
   const [newCategoryPath, setNewCategoryPath] = useState('');
 
+  const lastProduct = products[products.length - 1];
+  const lastNumber = lastProduct
+    ? parseInt(lastProduct.id.replace('p', ''))
+    : 0;
+
+  // Загрузка товаров с backend
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        setProducts(data);
+      } catch (err) {
+        console.error('Ошибка загрузки товаров:', err);
+      }
+    };
+
+    loadProducts();
+  }, []);
+
   // Добавление товара через API
   const addProduct = async () => {
-    if (!newProduct.name || !newProduct.brandId || !newProduct.subcategoryId) return;
+    if (!newProduct.name || !newProduct.brandId || !newProduct.subcategoryId) {
+      return;
+    }
 
     try {
-      // Формируем объект, который отправим на бек
-      const fullProduct: ProductData = {
-        id: `p${products.length + 1}`, // бек может тоже генерировать id, можно убрать если бек делает это
-        name: newProduct.name!,
+      const productToSend = {
+        id: `p${lastNumber + 1}`,
+        name: newProduct.name,
         price: Number(newProduct.price),
-        brandId: newProduct.brandId!,
-        subcategoryId: newProduct.subcategoryId!,
-        images: newProduct.images?.length ? newProduct.images : ['/images/products/default.png'],
-        characteristics: newProduct.characteristics?.length
-          ? newProduct.characteristics
-          : [{ name: 'Мощность', value: '—' }],
+        brandId: newProduct.brandId,
+        subcategoryId: newProduct.subcategoryId,
+        images:
+          newProduct.images?.length
+            ? newProduct.images
+            : ['/images/products/default.png'],
+        characteristics:
+          newProduct.characteristics?.length
+            ? newProduct.characteristics
+            : [{ name: 'Мощность', value: '—' }],
         inStock: newProduct.inStock ?? true,
-        description: newProduct.description || 'Описание товара отсутствует',
-      };
+        description:
+          newProduct.description || 'Описание товара отсутствует',
+};
 
-      // Отправка на бек
-      const addedProduct = await addProductApi(fullProduct);
+      const addedProduct = await addProductApi(productToSend);
 
-      // Обновляем стейт на фронте
-      setProducts([...products, addedProduct]);
+      // Обновляем список товаров
+      setProducts((prev) => [...prev, addedProduct]);
 
       // Сброс формы
       setNewProduct({
@@ -69,24 +100,25 @@ export const AdminPage = () => {
     }
   };
 
-  // Добавление категории через API
+  // Добавление категории
   const addCategory = async () => {
     if (!newCategoryName.trim()) return;
 
     try {
       const category: Partial<RawCategory> = {
-        id: newCategoryId || `c${categories.length + 1}`, // используем введённый id, если есть
+        id: newCategoryId || `c${categories.length + 1}`,
         name: newCategoryName,
         parentId: newCategoryParentId || undefined,
-        path: newCategoryPath || newCategoryName.toLowerCase().replace(/\s+/g, '-'), // используем путь из формы
+        path:
+          newCategoryPath ||
+          newCategoryName.toLowerCase().replace(/\s+/g, '-'),
         productCount: 0,
       };
 
       const addedCategory = await addCategoryApi(category);
 
-      setCategories([...categories, addedCategory]);
+      setCategories((prev) => [...prev, addedCategory]);
 
-      // Сброс формы — теперь очищаем все поля
       setNewCategoryId('');
       setNewCategoryName('');
       setNewCategoryParentId('');
@@ -101,46 +133,34 @@ export const AdminPage = () => {
       <h1 className={styles.titlte}>Админ панель</h1>
 
       <div className={styles.container}>
-      {/* -------------------- Добавление категории -------------------- */}
+        {/* Добавление категории */}
         <div>
           <h2 className={styles.subtitle}>Добавить категорию</h2>
 
           <input
             placeholder="ID категории"
             value={newCategoryId}
-            onChange={e => setNewCategoryId(e.target.value)}
+            onChange={(e) => setNewCategoryId(e.target.value)}
             className={styles.input}
           />
-          <div className={styles.categoriesId}>
-            <span className={styles.span}>Для родителских категорий однозначное число(от 1 до 9)</span>
-            <span className={styles.span}>Для подкатегорий двузначное число(от 10 до 90)</span>
-          </div>
 
           <input
             placeholder="Название категории"
             value={newCategoryName}
-            onChange={e => {
-              const name = e.target.value;
-              setNewCategoryName(name);
-
-              // Если это родительская категория, автогенерируем path
-              if (!newCategoryParentId) {
-                setNewCategoryPath(`/catalog/`);
-              }
-            }}
+            onChange={(e) => setNewCategoryName(e.target.value)}
             className={styles.input}
           />
 
           <select
             value={newCategoryParentId}
-            onChange={e => setNewCategoryParentId(e.target.value)}
+            onChange={(e) => setNewCategoryParentId(e.target.value)}
             className={styles.select}
           >
             <option value="">Нет родителя</option>
 
             {categories
-              .filter(c => c.id && String(c.id).length === 1)
-              .map(c => (
+              .filter((c) => c.id && String(c.id).length === 1)
+              .map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
                 </option>
@@ -148,9 +168,9 @@ export const AdminPage = () => {
           </select>
 
           <input
-            placeholder="Путь (например /catalog/hand-tools/pliers)"
+            placeholder="Путь"
             value={newCategoryPath}
-            onChange={e => setNewCategoryPath(e.target.value)}
+            onChange={(e) => setNewCategoryPath(e.target.value)}
             className={styles.input}
           />
 
@@ -159,14 +179,16 @@ export const AdminPage = () => {
           </button>
         </div>
 
-        {/* -------------------- Добавление товара -------------------- */}
+        {/* Добавление товара */}
         <div>
           <h2 className={styles.subtitle}>Добавить товар</h2>
 
           <input
             placeholder="Название товара"
             value={newProduct.name}
-            onChange={e => setNewProduct({ ...newProduct, name: e.target.value })}
+            onChange={(e) =>
+              setNewProduct({ ...newProduct, name: e.target.value })
+            }
             className={styles.input}
           />
 
@@ -174,113 +196,44 @@ export const AdminPage = () => {
             placeholder="Цена"
             type="number"
             value={newProduct.price}
-            onChange={e => setNewProduct({ ...newProduct, price: Number(e.target.value) })}
+            onChange={(e) =>
+              setNewProduct({
+                ...newProduct,
+                price: Number(e.target.value),
+              })
+            }
             className={styles.input}
           />
 
           <input
-            placeholder="Бренд ID (например metabo, stanley, bosch)"
+            placeholder="Бренд ID"
             value={newProduct.brandId}
-            onChange={e => setNewProduct({ ...newProduct, brandId: e.target.value })}
+            onChange={(e) =>
+              setNewProduct({ ...newProduct, brandId: e.target.value })
+            }
             className={styles.input}
           />
 
           <select
             value={newProduct.subcategoryId || ''}
-            onChange={e => setNewProduct({ ...newProduct, subcategoryId: e.target.value })}
+            onChange={(e) =>
+              setNewProduct({
+                ...newProduct,
+                subcategoryId: e.target.value,
+              })
+            }
             className={styles.select}
           >
             <option value="">Выберите подкатегорию</option>
-            {categories.filter(c => c.id && String(c.id).length === 2).map(c => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
+
+            {categories
+              .filter((c) => c.id && String(c.id).length === 2)
+              .map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
           </select>
-
-          {/* -------------------- Изображения -------------------- */}
-          <div className={styles.div}>
-            <h4 className={styles.text}>Изображения</h4>
-            <span className={styles.span}>(например /images/products/defoult.png)</span>
-          </div>
-          {(newProduct.images || []).map((img, idx) => (
-            <input
-              key={idx}
-              placeholder={`URL изображения ${idx + 1}`}
-              value={img}
-              onChange={e => {
-                const images = [...(newProduct.images || [])];
-                images[idx] = e.target.value;
-                setNewProduct({ ...newProduct, images });
-              }}
-              className={styles.input}
-            />
-          ))}
-          <button
-            type="button"
-            onClick={() =>
-              setNewProduct({ ...newProduct, images: [...(newProduct.images || []), ''] })
-            }
-            className={styles.button}
-          >
-            Добавить изображение
-          </button>
-
-          {/* -------------------- Характеристики -------------------- */}
-          <h4 className={styles.text}>Характеристики</h4>
-          {(newProduct.characteristics || []).map((ch, idx) => (
-            <div key={idx} className={styles.characteristicRow}>
-              <input
-                placeholder="Название"
-                value={ch.name}
-                onChange={e => {
-                  const chars = [...(newProduct.characteristics || [])];
-                  chars[idx].name = e.target.value;
-                  setNewProduct({ ...newProduct, characteristics: chars });
-                }}
-                className={styles.input}
-              />
-              <input
-                placeholder="Значение"
-                value={ch.value}
-                onChange={e => {
-                  const chars = [...(newProduct.characteristics || [])];
-                  chars[idx].value = e.target.value;
-                  setNewProduct({ ...newProduct, characteristics: chars });
-                }}
-                className={styles.input}
-              />
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={() =>
-              setNewProduct({
-                ...newProduct,
-                characteristics: [...(newProduct.characteristics || []), { name: '', value: '' }],
-              })
-            }
-            className={styles.button}
-          >
-            Добавить характеристику
-          </button>
-
-          <label className={styles.labelCheckbox}>
-            <h4 className={styles.text}>В наличии</h4>
-            <input
-              type="checkbox"
-              checked={newProduct.inStock}
-              onChange={e => setNewProduct({ ...newProduct, inStock: e.target.checked })}
-              className={styles.checkbox}
-            />
-          </label>
-
-          <textarea
-            placeholder="Описание товара"
-            value={newProduct.description || ''}
-            onChange={e => setNewProduct({ ...newProduct, description: e.target.value })}
-            className={styles.input}
-          />
 
           <button onClick={addProduct} className={styles.addButton}>
             Добавить товар
@@ -288,25 +241,12 @@ export const AdminPage = () => {
         </div>
       </div>
 
-
-      {/* -------------------- Список товаров -------------------- */}
+      {/* Список товаров */}
       <h2 className={styles.subtitle}>Товары</h2>
       <ul className={styles.ul}>
-        {products.map(p => (
+        {products.map((p) => (
           <li key={p.id} className={styles.li}>
-            {p.name} — {p.price} ₽ — {p.inStock ? 'В наличии' : 'Нет в наличии'} —
-            Подкатегория: {categories.find(c => c.id === p.subcategoryId)?.name || 'не выбрана'} —
-            Бренд: {p.brandId}
-          </li>
-        ))}
-      </ul>
-
-      {/* -------------------- Список категорий -------------------- */}
-      <h2 className={styles.subtitle}>Категории</h2>
-      <ul className={styles.ul}>
-        {categories.map(c => (
-          <li key={c.id} className={styles.li}>
-            {c.name} — parent: {c.parentId ? categories.find(p => p.id === c.parentId)?.name : 'нет'}
+            {p.name} — {p.price} ₽ — {p.inStock ? 'В наличии' : 'Нет в наличии'}
           </li>
         ))}
       </ul>

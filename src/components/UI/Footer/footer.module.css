@@ -22,6 +22,12 @@
   gap: 50px;
 }
 
+.logoImg {
+  width: 350px;
+  height: 70px;
+  object-fit: cover;
+}
+
 .contacts {
   display: flex;
   gap: 8px;
