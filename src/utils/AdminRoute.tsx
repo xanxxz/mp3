@@ -17,7 +17,7 @@ export const AdminRoute = ({ children }: AdminRouteProps) => {
       return;
     }
 
-    fetch('http://5.23.52.174:5000/me', {
+    fetch('/api/me', {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())

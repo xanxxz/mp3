@@ -37,7 +37,7 @@ export const ProfilePage = () => {
       }
 
       try {
-        const res = await fetch('http://5.23.52.174:5000/me', {
+        const res = await fetch('/api/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error('Не удалось получить данные пользователя');
