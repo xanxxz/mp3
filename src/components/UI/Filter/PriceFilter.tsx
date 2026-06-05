@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './PriceFilter.module.css';
+import styles from './priceFilter.module.css';
 
 type PriceFilterProps = {
   min: number;

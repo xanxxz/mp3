@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './ProductPurchase.module.css';
+import styles from './productPurchase.module.css';
 import { ProductData } from 'types/types';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../utils/store';

@@ -1,10 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
 import styles from './heroCarousel.module.css';
 import slide1 from '../../../assets/one.png';
 import slide2 from '../../../assets/two.png';

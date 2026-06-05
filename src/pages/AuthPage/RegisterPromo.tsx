@@ -1,4 +1,4 @@
-import styles from './AuthPage.module.css';
+import styles from './authPage.module.css';
 import { Link } from 'react-router-dom';
 
 export const RegisterPromo = () => {

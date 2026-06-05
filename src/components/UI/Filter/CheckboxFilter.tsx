@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import styles from './CheckboxFilter.module.css';
+import styles from './checkboxFilter.module.css';
 import type { ProductData } from 'types/types';
 
 export interface CheckboxOption {

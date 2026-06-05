@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './ProductGallery.module.css';
+import styles from './productGallery.module.css';
 
 interface ProductGalleryProps {
   images: string[];

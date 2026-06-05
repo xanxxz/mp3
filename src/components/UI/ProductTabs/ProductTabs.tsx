@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './ProductTabs.module.css';
+import styles from './productTabs.module.css';
 import { ProductData } from 'types/types';
 import ProductCharacteristics from '../ProductCharacteristics/ProductCharacteristics';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './CartItemRow.module.css';
+import styles from './cartItemRow.module.css';
 
 interface CartItemRowProps {
   id: string;

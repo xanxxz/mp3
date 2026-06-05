@@ -1,4 +1,4 @@
-import styles from './RegisterPage.module.css';
+import styles from './registerPage.module.css';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { validateRegister } from '../../utils/validation';
 import { registerUser } from 'shared/api';

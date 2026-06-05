@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ProductCharacteristics.module.css';
+import styles from './productCharacteristics.module.css';
 import { ProductCharacteristic } from 'types/types';
 
 interface ProductCharacteristicsProps {

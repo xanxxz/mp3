@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './ProductCard.module.css';
+import styles from './productCard.module.css';
 import { ProductData } from 'types/types';
 import ShopCart from '../../../assets/ShopCart.svg?react';
 import { useDispatch } from 'react-redux';

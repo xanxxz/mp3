@@ -1,4 +1,4 @@
-import styles from './RegisterPage.module.css';
+import styles from './registerPage.module.css';
 import { Link } from 'react-router-dom';
 
 export const LoginPromo = () => {

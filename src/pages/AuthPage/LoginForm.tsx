@@ -1,4 +1,4 @@
-import styles from './AuthPage.module.css';
+import styles from './authPage.module.css';
 import { Link, useNavigate } from 'react-router';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { validateLogin, LoginFormValues } from '../../utils/validation';

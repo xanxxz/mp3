@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './ResetPasswordPage.module.css';
+import styles from './resetPasswordPage.module.css';
 import { Link } from 'react-router';
 import { validateReset } from 'utils/validation';
 import { resetPassword } from 'shared/api';

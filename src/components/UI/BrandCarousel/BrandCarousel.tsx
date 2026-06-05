@@ -1,7 +1,3 @@
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
 import styles from './brandCarousel.module.css';
 
 import brand1 from '../../../assets/brand1.png';

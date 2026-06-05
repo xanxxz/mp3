@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './CartPage.module.css';
+import styles from './cartPage.module.css';
 import { CartItemRow } from 'components/UI/Cart/CartItemsList';
 import { CartSummary } from 'components/UI/Cart/CartSummary';
 import RelatedProducts from 'components/UI/ProductsRelated/RelatedProducts';

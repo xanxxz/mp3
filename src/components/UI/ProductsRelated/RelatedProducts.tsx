@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './RelatedProducts.module.css';
+import styles from './relatedProducts.module.css';
 import { ProductData } from 'types/types';
 import ProductCard from '../ProductCard/ProductCard';
 import productsData from '../../../data/products.json';

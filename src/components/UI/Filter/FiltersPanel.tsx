@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import styles from './FiltersPanel.module.css';
+import styles from './filtersPanel.module.css';
 import { PriceFilter } from './PriceFilter';
 import { CheckboxFilter } from './CheckboxFilter';
 import { RadioFilter } from './RadioFilter';

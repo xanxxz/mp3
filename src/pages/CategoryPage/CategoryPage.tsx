@@ -1,7 +1,7 @@
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { Breadcrumbs } from '../../components/UI/Breadcrumbs/Breadcrumbs';
 import { FiltersPanel, FiltersState } from '../../components/UI/Filter/FiltersPanel';
-import styles from './CategoryPage.module.css';
+import styles from './categoryPage.module.css';
 import { useEffect, useMemo, useState } from 'react';
 import { SortFilter, SortOption } from 'components/UI/Filter/SortFilter';
 import ProductList from 'components/UI/ProductCard/ProductCard';
