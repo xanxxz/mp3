@@ -14,6 +14,8 @@ export const AdminPage = () => {
 
   // Категории пока оставляем из JSON
   const [categories, setCategories] = useState<Category[]>(categoriesData);
+  const [users, setUsers] = useState<any[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
 
   // Состояние нового товара
   const [newProduct, setNewProduct] = useState<Partial<ProductData>>({
@@ -50,6 +52,42 @@ export const AdminPage = () => {
       }
     };
 
+    const loadUsers = async () => {
+      try {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('/api/admin/users', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+        setUsers(data);
+      } catch (err) {
+        console.error('Ошибка загрузки пользователей:', err);
+      }
+    };
+
+    const loadOrders = async () => {
+      try {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('/api/admin/orders', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+        setOrders(data);
+      } catch (err) {
+        console.error('Ошибка загрузки заказов:', err);
+      }
+    };
+
+    loadUsers();
+    loadOrders();
     loadProducts();
   }, []);
 
@@ -250,6 +288,62 @@ export const AdminPage = () => {
           </li>
         ))}
       </ul>
+      <h2 className={styles.subtitle}>Пользователи</h2>
+
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>Роль</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.phone}</td>
+              <td>{user.role}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h2 className={styles.subtitle}>Заказы</h2>
+
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Код</th>
+            <th>Клиент</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.code}</td>
+              <td>{order.name}</td>
+              <td>{order.email}</td>
+              <td>{order.phone}</td>
+              <td>{order.total} ₽</td>
+              <td>
+                {new Date(order.created_at).toLocaleDateString()}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
