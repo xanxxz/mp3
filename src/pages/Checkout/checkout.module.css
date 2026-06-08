@@ -131,3 +131,91 @@
 .cardRow .error {
   margin-top: 6px;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .container,
+  .containerFinish {
+    margin: 30px 20px;
+    padding: 30px 24px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .container,
+  .containerFinish {
+    margin: 16px 10px;
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .subTitle {
+    font-size: 14px;
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+    margin-top: 18px;
+  }
+
+  .form {
+    gap: 12px;
+  }
+
+  .cardRow {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .input,
+  .textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .textarea {
+    min-height: 90px;
+  }
+
+  .submitBtn {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .container,
+  .containerFinish {
+    margin: 10px 6px;
+    padding: 16px 12px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .sectionTitle {
+    font-size: 15px;
+  }
+
+  .input,
+  .textarea {
+    font-size: 13px;
+  }
+
+  .submitBtn {
+    font-size: 14px;
+  }
+}

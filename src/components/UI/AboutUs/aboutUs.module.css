@@ -40,10 +40,6 @@ ul {
   gap: 20px;
 }
 
-.listItem {
-
-}
-
 .span {
   color: #117FE3;
   font-size: 26px;
@@ -85,4 +81,105 @@ ul {
 
 img {
   block-size: 500px;
+}
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+    padding: 30px 20px;
+    gap: 30px;
+  }
+
+  .textBox {
+    margin-inline-start: 0;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .firstText {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .imgBox {
+    block-size: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .imgBox img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    block-size: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    flex-direction: column;
+    padding: 24px 12px;
+    gap: 24px;
+    overflow-x: hidden;
+    max-inline-size: 94%;
+  }
+
+  .textBox {
+    margin-inline-start: 0;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .metrika {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .listItem {
+    width: calc(50% - 8px);
+    min-width: 0;
+  }
+
+  .imgBox {
+    width: 100%;
+    block-size: auto;
+    overflow: hidden;
+  }
+
+  .imgBox img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .button {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .metrika {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .listItem {
+    width: 100%;
+  }
+
+  .span {
+    font-size: 20px;
+  }
 }

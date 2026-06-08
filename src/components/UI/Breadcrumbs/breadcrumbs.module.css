@@ -53,3 +53,89 @@
   font-size: 15px;
   font-weight: 400;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .div {
+    padding: 16px;
+    margin-inline: 10px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .breadcrumbs {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .divFlex {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .notFound {
+    font-size: 32px;
+    text-align: center;
+    padding: 20px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .div {
+    padding: 12px;
+    margin-inline: 0;
+  }
+
+  .breadcrumbs {
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .breadcrumbItem {
+    gap: 6px;
+  }
+
+  .divFlex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .count {
+    font-size: 13px;
+  }
+
+  .notFound {
+    font-size: 24px;
+    text-align: center;
+    padding: 16px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .breadcrumbs {
+    font-size: 11px;
+  }
+
+  .count {
+    font-size: 12px;
+  }
+
+  .notFound {
+    font-size: 20px;
+  }
+}

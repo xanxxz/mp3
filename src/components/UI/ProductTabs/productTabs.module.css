@@ -89,3 +89,106 @@ h5 {
   margin: 0;
   line-height: 20px;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .tabs {
+    max-inline-size: 100%;
+    margin-block-end: 30px;
+  }
+
+  .buttons {
+    flex-wrap: wrap;
+  }
+
+  .buttons button {
+    max-inline-size: none;
+  }
+
+  .title,
+  .deliveryTitle {
+    font-size: 18px;
+    line-height: 32px;
+  }
+
+  .description,
+  .deliveryText,
+  .li {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .tabs {
+    gap: 16px;
+    margin-block-end: 24px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .buttons button {
+    width: 100%;
+    max-inline-size: 100%;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .buttons button.active {
+    border-bottom: 2px solid #EE0906;
+  }
+
+  .title,
+  .deliveryTitle {
+    font-size: 17px;
+    line-height: 28px;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .deliveryText {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .li {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  h5 {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .ul {
+    padding-left: 10px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .title,
+  .deliveryTitle {
+    font-size: 16px;
+  }
+
+  .description,
+  .deliveryText,
+  .li {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  h5 {
+    font-size: 14px;
+  }
+}

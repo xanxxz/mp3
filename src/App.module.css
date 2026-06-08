@@ -5,6 +5,7 @@ body {
   padding: 0;
   font-family: 'Helvetica', Arial, sans-serif;
   scrollbar-width: none;
+  overflow-x: hidden;
 }
 
 .container {

@@ -172,3 +172,128 @@
 .catalogButton:hover {
   background: #0b1c2d;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .wrapper {
+    margin-inline: 20px;
+    margin-block-end: 60px;
+  }
+
+  .page {
+    flex-direction: column;
+  }
+
+  .title,
+  .title1 {
+    font-size: 32px;
+  }
+
+  .title1 {
+    margin-inline-start: 0;
+  }
+
+  .header {
+    gap: 20px;
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .wrapper {
+    margin-inline: 10px;
+    margin-block-end: 40px;
+  }
+
+  .page {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .list {
+    padding: 10px;
+  }
+
+  .title,
+  .title1 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .title1 {
+    margin-inline-start: 0;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .cart {
+    gap: 10px;
+  }
+
+  .cartItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .total {
+    text-align: left;
+    font-size: 16px;
+  }
+
+  .checkoutBtn {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .catalogButton {
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+  }
+
+  .empty {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+    block-size: auto;
+  }
+
+  .empty h2 {
+    font-size: 22px;
+  }
+
+  .empty p {
+    font-size: 14px;
+  }
+
+  .emptyIcon,
+  .img {
+    font-size: 40px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .title,
+  .title1 {
+    font-size: 22px;
+  }
+
+  .empty h2 {
+    font-size: 18px;
+  }
+
+  .empty p {
+    font-size: 13px;
+  }
+
+  .catalogButton,
+  .checkoutBtn {
+    font-size: 12px;
+  }
+}

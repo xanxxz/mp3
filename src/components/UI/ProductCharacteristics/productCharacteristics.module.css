@@ -35,3 +35,55 @@
 .value {
   color: #000;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .characteristics {
+    min-inline-size: 100%;
+    max-inline-size: 100%;
+  }
+
+  .title {
+    font-size: 17px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .characteristics {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 0;
+  }
+
+  .name,
+  .value {
+    font-size: 14px;
+    word-break: break-word;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .title {
+    font-size: 15px;
+  }
+
+  .name,
+  .value {
+    font-size: 13px;
+  }
+}

@@ -111,3 +111,104 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .purchase {
+    inline-size: 100%;
+    max-inline-size: 100%;
+    box-sizing: border-box;
+  }
+
+  .price {
+    font-size: 26px;
+  }
+
+  .quantity {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .addToCart,
+  .buyNow {
+    width: 100%;
+    padding-inline: 20px;
+    text-align: center;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .purchase {
+    inline-size: 100%;
+    padding: 16px;
+    gap: 10px;
+    max-block-size: none;
+  }
+
+  .art {
+    font-size: 12px;
+  }
+
+  .stock {
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 24px;
+  }
+
+  .quantity {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .quantity div {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .quantity button {
+    width: 44px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .quantity span {
+    font-size: 15px;
+  }
+
+  .buttons {
+    width: 100%;
+  }
+
+  .addToCart {
+    width: 100%;
+    padding: 16px;
+    font-size: 12px;
+  }
+
+  .buyNow {
+    width: 100%;
+    padding: 14px;
+    font-size: 14px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .purchase {
+    padding: 12px;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+
+  .addToCart,
+  .buyNow {
+    padding: 12px;
+  }
+}

@@ -129,3 +129,113 @@ input {
   cursor: not-allowed;
   opacity: 0.6;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 10px 20px 50px;
+  }
+
+  .card {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .form {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 10px 10px 40px;
+  }
+
+  .title {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form {
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  label {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .primaryBtn {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .right {
+    width: 100%;
+  }
+
+  .promoBox {
+    padding: 16px;
+  }
+
+  .promoBox h2 {
+    font-size: 20px;
+  }
+
+  .promoBox p {
+    font-size: 13px;
+  }
+
+  .darkBtn {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 14px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .form {
+    padding: 12px;
+  }
+
+  .promoBox {
+    padding: 12px;
+  }
+
+  .promoBox h2 {
+    font-size: 18px;
+  }
+
+  .error {
+    font-size: 12px;
+  }
+}

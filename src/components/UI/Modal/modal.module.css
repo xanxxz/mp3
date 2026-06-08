@@ -55,3 +55,78 @@
   text-transform: uppercase;
   pointer-events: all;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .overlay {
+    padding: 16px;
+  }
+
+  .modal {
+    max-width: 100%;
+  }
+
+  .button {
+    padding: 18px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .overlay {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .content {
+    gap: 10px;
+  }
+
+  .input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .checkbox {
+    align-items: flex-start;
+    font-size: 13px;
+  }
+
+  .actions {
+    margin-top: 16px;
+  }
+
+  .button {
+    width: 100%;
+    padding: 14px;
+    font-size: 12px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .modal {
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .button {
+    padding: 12px;
+    font-size: 11px;
+  }
+}

@@ -47,3 +47,86 @@ h2 {
   border-radius: 10px;
   object-fit: contain;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .hero {
+    padding-block: 24px;
+    padding-block-end: 36px;
+  }
+
+  h2 {
+    margin-inline-start: 20px;
+    font-size: 26px;
+  }
+
+  .cards {
+    gap: 12px;
+    padding-inline: 20px;
+    justify-content: flex-start;
+  }
+
+  .div {
+    width: 140px;
+    height: 55px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .hero {
+    margin-top: 10px;
+    padding-block: 20px;
+    padding-block-end: 30px;
+    gap: 16px;
+  }
+
+  h2 {
+    margin-inline-start: 12px;
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .cards {
+    gap: 10px;
+    padding-inline: 12px;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cards {
+    scrollbar-width: none;
+  }
+
+  .div {
+    width: 120px;
+    height: 50px;
+    flex-shrink: 0;
+  }
+
+  .slide {
+    width: 70%;
+    max-height: 35px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  h2 {
+    font-size: 18px;
+  }
+
+  .div {
+    width: 100px;
+    height: 45px;
+  }
+
+  .slide {
+    width: 75%;
+    max-height: 30px;
+  }
+}

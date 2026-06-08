@@ -119,3 +119,92 @@
   align-items: center;
   padding: 20px 0;
 }
+
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 0 15px;
+    margin: 30px auto;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 0 10px;
+    margin: 20px auto;
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+
+  .tabButton {
+    flex: none;
+    min-width: 140px;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .adminBtn,
+  .logoutBtn {
+    width: 100%;
+    margin-inline-end: 0;
+    margin-top: 10px;
+  }
+
+  /* Скролл таблицы заказов */
+  .ordersTable {
+    min-width: 600px;
+  }
+
+  .tabContent {
+    overflow-x: auto;
+  }
+
+  .ordersTable th,
+  .ordersTable td {
+    padding: 8px;
+    font-size: 13px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .tabButton {
+    min-width: 120px;
+    font-size: 13px;
+  }
+
+  .ordersTable th,
+  .ordersTable td {
+    font-size: 12px;
+    padding: 6px;
+  }
+}

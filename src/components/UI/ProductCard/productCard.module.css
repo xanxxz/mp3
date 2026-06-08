@@ -74,3 +74,94 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .card {
+    max-inline-size: 100%;
+    padding: 12px;
+  }
+
+  .img {
+    inline-size: 140px;
+    block-size: 120px;
+  }
+
+  .name {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .price {
+    font-size: 18px;
+  }
+
+  .btn {
+    inline-size: 100%;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .card {
+    max-inline-size: 100%;
+    padding: 10px;
+    gap: 8px;
+    max-block-size: none;
+  }
+
+  .img {
+    inline-size: 100%;
+    max-inline-size: 120px;
+    block-size: 100px;
+  }
+
+  .name {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .art {
+    font-size: 11px;
+  }
+
+  .price {
+    font-size: 16px;
+    line-height: 18px;
+  }
+
+  .btn {
+    inline-size: 100%;
+    block-size: 36px;
+    gap: 6px;
+  }
+
+  .btnSpan {
+    font-size: 13px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .card {
+    padding: 8px;
+  }
+
+  .img {
+    max-inline-size: 100px;
+    block-size: 80px;
+  }
+
+  .name {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .price {
+    font-size: 15px;
+  }
+
+  .btnSpan {
+    font-size: 12px;
+  }
+}

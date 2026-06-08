@@ -64,3 +64,71 @@
 .reset:hover {
   color: #1e40af;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .wrapper {
+    padding-block: 14px;
+  }
+
+  .header {
+    margin-bottom: 10px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .wrapper {
+    padding-block: 12px;
+  }
+
+  .header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .list {
+    gap: 6px;
+  }
+
+  .item {
+    gap: 6px;
+    font-size: 14px;
+    padding: 6px 2px;
+  }
+
+  .item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .label {
+    flex: 1;
+    word-break: break-word;
+  }
+
+  .count {
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .reset {
+    font-size: 13px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .item {
+    font-size: 13px;
+  }
+
+  .count {
+    font-size: 11px;
+  }
+
+  .reset {
+    font-size: 12px;
+  }
+}

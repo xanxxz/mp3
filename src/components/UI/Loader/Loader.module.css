@@ -25,3 +25,34 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .loader {
+    width: 44px;
+    height: 44px;
+    border-width: 4px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .overlay {
+    padding: 16px;
+  }
+
+  .loader {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .loader {
+    width: 36px;
+    height: 36px;
+    border-width: 3px;
+  }
+}

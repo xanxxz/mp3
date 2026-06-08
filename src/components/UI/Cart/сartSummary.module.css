@@ -50,3 +50,63 @@
   cursor: not-allowed;
   opacity: 0.6;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .summary {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .summary {
+    width: 100%;
+    padding: 12px;
+    gap: 20px;
+    box-sizing: border-box;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .total {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .totalSpan {
+    font-size: 20px;
+  }
+
+  .checkoutBtn {
+    width: 100%;
+    padding: 18px 16px;
+    font-size: 12px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .summary {
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .totalSpan {
+    font-size: 18px;
+  }
+
+  .checkoutBtn {
+    padding: 16px 12px;
+  }
+}

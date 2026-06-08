@@ -4,3 +4,26 @@
   background: #fff;
   height: fit-content;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .panel {
+    width: 220px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .panel {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .panel {
+    width: 100%;
+  }
+}

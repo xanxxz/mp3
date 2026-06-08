@@ -76,3 +76,93 @@
 .remove button:hover {
   opacity: .8;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .row {
+    gap: 20px;
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .price,
+  .total {
+    font-size: 16px;
+  }
+
+  .quantity button {
+    width: 40px;
+    height: 32px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    padding: 16px 0;
+  }
+
+  .product {
+    width: 100%;
+  }
+
+  .price,
+  .quantity,
+  .total,
+  .remove {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+
+  .price::before {
+    content: "Цена";
+    color: #6b7280;
+  }
+
+  .quantity::before {
+    content: "Количество";
+    color: #6b7280;
+  }
+
+  .total::before {
+    content: "Сумма";
+    color: #6b7280;
+  }
+
+  .remove {
+    justify-content: flex-end;
+  }
+
+  .image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .quantity button {
+    width: 36px;
+    height: 30px;
+    font-size: 16px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .product {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quantity div {
+    gap: 8px;
+  }
+
+  .price,
+  .total {
+    font-size: 16px;
+  }
+}

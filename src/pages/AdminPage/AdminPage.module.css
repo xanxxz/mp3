@@ -163,3 +163,112 @@
   resize: vertical;
   margin-bottom: 12px;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 15px;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .titlte {
+    font-size: 1.7rem;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+  }
+
+  .input,
+  .select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .textarea {
+    box-sizing: border-box;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 10px;
+    overflow-x: hidden;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .titlte {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .button,
+  .addButton {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .label {
+    flex-wrap: wrap;
+  }
+
+  .categoriesId {
+    margin-inline-start: 0;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .table th,
+  .table td {
+    min-width: 120px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .titlte {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .button,
+  .addButton {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    font-size: 14px;
+  }
+}

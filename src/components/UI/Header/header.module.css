@@ -233,3 +233,121 @@
   height: 15px;
   text-align: center;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .bottom {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px;
+    margin-inline: 0;
+  }
+
+  .logo {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .logoImg {
+    width: 220px;
+    height: auto;
+  }
+
+  .catalog {
+    flex-shrink: 0;
+  }
+
+  .search {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .searchResults {
+    max-height: 250px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .header {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .logo {
+    justify-content: center;
+  }
+
+  .logoImg {
+    width: 180px;
+    height: auto;
+  }
+
+  .catalog {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .search input {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .search button {
+    width: 50px;
+    flex-shrink: 0;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: space-around;
+    gap: 0;
+    inline-size: auto;
+  }
+
+  .actionItem,
+  .actionItemCart {
+    font-size: 11px;
+  }
+
+  .actionItem svg,
+  .actionItemCart svg {
+    font-size: 22px;
+  }
+
+  .cartBadge {
+    top: -6px;
+    left: 18px;
+  }
+
+  .searchItem {
+    padding: 8px;
+  }
+
+  .searchItem img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .searchItem span {
+    font-size: 13px;
+  }
+}

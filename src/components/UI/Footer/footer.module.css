@@ -145,3 +145,175 @@ h4 {
   gap: 45px;
   align-items: center;
 }
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .footer {
+    padding: 32px 24px;
+  }
+
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .logoSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .logoImg {
+    width: 260px;
+    height: auto;
+  }
+
+  .contacts {
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .linksSection {
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .payment {
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .paymentMethod {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .newsletter {
+    width: 100%;
+  }
+
+  .newsletter input {
+    flex: 1;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .footer {
+    padding: 24px 12px;
+    gap: 20px;
+  }
+
+  .top {
+    gap: 20px;
+  }
+
+  .logoSection {
+    gap: 16px;
+  }
+
+  .logoImg {
+    width: 180px;
+    height: auto;
+  }
+
+  .contacts {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .tel {
+    font-size: 18px;
+  }
+
+  .linksSection {
+    flex-direction: column;
+    gap: 24px;
+    padding-block: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grid a {
+    margin-right: 0;
+    font-size: 14px;
+    line-height: 28px;
+  }
+
+  .column h4 {
+    margin-bottom: 10px;
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .payment {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .payment span {
+    inline-size: auto;
+  }
+
+  .paymentMethod {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .newsletter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .newsletter input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .newsletter button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .copy {
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .logoImg {
+    width: 150px;
+  }
+
+  .tel {
+    font-size: 16px;
+  }
+
+  .grid a {
+    font-size: 13px;
+  }
+
+  .copy {
+    font-size: 11px;
+  }
+}
