@@ -216,7 +216,6 @@ export const AdminPage = () => {
             Добавить категорию
           </button>
         </div>
-
         {/* Добавление товара */}
         <div>
           <h2 className={styles.subtitle}>Добавить товар</h2>
@@ -233,7 +232,7 @@ export const AdminPage = () => {
           <input
             placeholder="Цена"
             type="number"
-            value={newProduct.price}
+            value={newProduct.price || ''}
             onChange={(e) =>
               setNewProduct({
                 ...newProduct,
@@ -244,10 +243,13 @@ export const AdminPage = () => {
           />
 
           <input
-            placeholder="Бренд ID"
+            placeholder="Бренд ID (bosch, makita...)"
             value={newProduct.brandId}
             onChange={(e) =>
-              setNewProduct({ ...newProduct, brandId: e.target.value })
+              setNewProduct({
+                ...newProduct,
+                brandId: e.target.value,
+              })
             }
             className={styles.input}
           />
@@ -273,7 +275,143 @@ export const AdminPage = () => {
               ))}
           </select>
 
-          <button onClick={addProduct} className={styles.addButton}>
+          <input
+            placeholder="Ссылка на изображение"
+            value={newProduct.images?.[0] || ''}
+            onChange={(e) =>
+              setNewProduct({
+                ...newProduct,
+                images: [e.target.value],
+              })
+            }
+            className={styles.input}
+          />
+
+          <textarea
+            placeholder="Описание товара"
+            value={newProduct.description || ''}
+            onChange={(e) =>
+              setNewProduct({
+                ...newProduct,
+                description: e.target.value,
+              })
+            }
+            className={styles.textarea}
+          />
+
+          <h3>Характеристики</h3>
+
+          {(newProduct.characteristics || []).map((char, index) => (
+            <div
+              key={index}
+              style={{
+                display: 'flex',
+                gap: '10px',
+                marginBottom: '10px',
+              }}
+            >
+              <input
+                placeholder="Название"
+                value={char.name}
+                onChange={(e) => {
+                  const updated = [
+                    ...(newProduct.characteristics || []),
+                  ];
+
+                  updated[index] = {
+                    ...updated[index],
+                    name: e.target.value,
+                  };
+
+                  setNewProduct({
+                    ...newProduct,
+                    characteristics: updated,
+                  });
+                }}
+                className={styles.input}
+              />
+
+              <input
+                placeholder="Значение"
+                value={char.value}
+                onChange={(e) => {
+                  const updated = [
+                    ...(newProduct.characteristics || []),
+                  ];
+
+                  updated[index] = {
+                    ...updated[index],
+                    value: e.target.value,
+                  };
+
+                  setNewProduct({
+                    ...newProduct,
+                    characteristics: updated,
+                  });
+                }}
+                className={styles.input}
+              />
+
+              <button
+                type="button"
+                onClick={() => {
+                  const updated = [
+                    ...(newProduct.characteristics || []),
+                  ];
+
+                  updated.splice(index, 1);
+
+                  setNewProduct({
+                    ...newProduct,
+                    characteristics: updated,
+                  });
+                }}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() =>
+              setNewProduct({
+                ...newProduct,
+                characteristics: [
+                  ...(newProduct.characteristics || []),
+                  {
+                    name: '',
+                    value: '',
+                  },
+                ],
+              })
+            }
+            className={styles.addButton}
+          >
+            Добавить характеристику
+          </button>
+
+          <div style={{ marginTop: '20px' }}>
+            <label>
+              <input
+                type="checkbox"
+                checked={newProduct.inStock ?? true}
+                onChange={(e) =>
+                  setNewProduct({
+                    ...newProduct,
+                    inStock: e.target.checked,
+                  })
+                }
+              />
+              В наличии
+            </label>
+          </div>
+
+          <button
+            onClick={addProduct}
+            className={styles.addButton}
+            style={{ marginTop: '20px' }}
+          >
             Добавить товар
           </button>
         </div>
