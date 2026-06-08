@@ -5,6 +5,7 @@ import styles from './AdminPage.module.css';
 import {
   addCategoryApi,
   addProductApi,
+  deleteProductApi,
   RawCategory,
 } from '../../shared/api';
 
@@ -419,13 +420,42 @@ export const AdminPage = () => {
 
       {/* Список товаров */}
       <h2 className={styles.subtitle}>Товары</h2>
+
       <ul className={styles.ul}>
         {products.map((p) => (
           <li key={p.id} className={styles.li}>
-            {p.name} — {p.price} ₽ — {p.inStock ? 'В наличии' : 'Нет в наличии'}
+            <div>
+              <strong>{p.name}</strong> — {p.price} ₽ —{' '}
+              {p.inStock ? 'В наличии' : 'Нет в наличии'}
+            </div>
+
+            <button
+              className={styles.deleteButton}
+              onClick={async () => {
+                const confirmed = window.confirm(
+                  `Удалить товар "${p.name}"?`
+                );
+
+                if (!confirmed) return;
+
+                try {
+                  await deleteProductApi(p.id);
+
+                  setProducts((prev) =>
+                    prev.filter((product) => product.id !== p.id)
+                  );
+                } catch (err) {
+                  console.error('Ошибка удаления:', err);
+                  alert('Не удалось удалить товар');
+                }
+              }}
+            >
+              Удалить
+            </button>
           </li>
         ))}
       </ul>
+      
       <h2 className={styles.subtitle}>Пользователи</h2>
 
       <table className={styles.table}>

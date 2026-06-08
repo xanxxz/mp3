@@ -223,3 +223,20 @@ export const fetchOrders = async () => {
 
   return res.json();
 };
+
+export const deleteProductApi = async (id: string) => {
+  const token = localStorage.getItem('token');
+
+  const response = await fetch(`${API_URL}/admin/products/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Ошибка удаления товара');
+  }
+
+  return response.json();
+};
